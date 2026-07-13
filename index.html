@@ -3,149 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Projects by Roger Tawfik, a Computer Engineering student at UMass Amherst." />
-    <title>Roger Tawfik | Projects</title>
+    <meta name="description" content="Computer engineering projects by Roger Tawfik." />
+    <title>Roger Tawfik | Computer Engineering</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="simple-home portfolio-v2">
     <header class="site-header">
       <a class="wordmark" href="#top">Roger Tawfik</a>
-      <nav aria-label="Primary navigation">
-        <a href="#projects">Projects</a>
-        <a href="https://github.com/rogertawfik">GitHub</a>
-        <a href="https://linkedin.com/in/rogertawfik">LinkedIn</a>
-      </nav>
+      <nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="#work">Work</a><a class="nav-resume" href="resume.pdf" download>Resume</a><span class="nav-socials"><a class="icon-link nav-email" href="mailto:tawfikroger@gmail.com" aria-label="Email Roger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 10V9.9l-7 5-7-5V17h14Z"/></svg></a><a class="icon-link" href="https://github.com/rogertawfik" aria-label="Roger on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a><a class="icon-link" href="https://linkedin.com/in/rogertawfik" aria-label="Roger on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 7.1A2.1 2.1 0 1 0 5.2 3a2.1 2.1 0 0 0 0 4.1ZM3.4 21h3.7V9H3.4v12ZM9.3 9H13v1.6h.05c.51-.97 1.77-2 3.64-2 3.9 0 4.62 2.57 4.62 5.91V21h-3.7v-5.75c0-1.37-.03-3.14-1.91-3.14-1.92 0-2.21 1.5-2.21 3.04V21H9.3V9Z"/></svg></a></span></nav>
     </header>
 
     <main id="top">
-      <section class="profile" aria-labelledby="profile-title">
-        <div>
-          <p class="label">Computer Engineering, UMass Amherst</p>
-          <h1 id="profile-title">Roger Tawfik</h1>
-        </div>
-        <div class="profile-details">
+      <section class="about-first" id="about">
+        <div class="hero-identity"><p class="intro-line">Computer Engineering student in Natick, Massachusetts</p><h1>Roger Tawfik</h1></div>
+        <div class="about-first-copy hero-summary">
           <p>I’m a Computer Engineering student at UMass Amherst interested in building practical systems across software, hardware, and computer vision. I’m especially interested in healthcare applications, including nutrition, fitness technology, and clinical gait video analysis, while continuing to pursue a broad range of computer engineering roles.</p>
-          <p class="profile-note">NSF REU Researcher at Florida Atlantic University. Expected graduation: May 2028.</p>
-          <div class="profile-links">
-            <a href="mailto:tawfikroger@gmail.com">Email</a>
-            <a href="https://github.com/rogertawfik">GitHub</a>
-            <a href="https://linkedin.com/in/rogertawfik">LinkedIn</a>
-          </div>
+          <div class="about-actions"><a href="#work">View work</a><a href="resume.pdf" download>Resume</a><a class="icon-link" href="mailto:tawfikroger@gmail.com" aria-label="Email Roger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 10V9.9l-7 5-7-5V17h14Z"/></svg></a><a class="icon-link" href="https://github.com/rogertawfik" aria-label="Roger on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a><a class="icon-link" href="https://linkedin.com/in/rogertawfik" aria-label="Roger on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 7.1A2.1 2.1 0 1 0 5.2 3a2.1 2.1 0 0 0 0 4.1ZM3.4 21h3.7V9H3.4v12ZM9.3 9H13v1.6h.05c.51-.97 1.77-2 3.64-2 3.9 0 4.62 2.57 4.62 5.91V21h-3.7v-5.75c0-1.37-.03-3.14-1.91-3.14-1.92 0-2.21 1.5-2.21 3.04V21H9.3V9Z"/></svg></a></div>
         </div>
+        <dl class="evidence-rail" aria-label="Candidate evidence"><div><dt><img src="assets/umass-logo.png" alt="" />Education</dt><dd>B.S. Computer Engineering</dd><small>UMass Amherst · Expected May 2028</small></div><div><dt><img src="assets/fau-logo.png" alt="" />Research</dt><dd>NSF REU Researcher</dd><small>Florida Atlantic University · Summer 2026</small></div><div><dt>Current build</dt><dd>Deployed full-stack PWA</dd><small>React · TypeScript · Supabase</small></div><div><dt>Selected work</dt><dd>4 technical projects</dd><small>Research · software · embedded · applied ML</small></div></dl>
       </section>
 
-      <section class="projects" id="projects" aria-labelledby="projects-title">
-        <div class="projects-heading">
-          <h2 id="projects-title">Projects</h2>
-          <p>Source code, walkthroughs, and technical details will be added as each case study is completed.</p>
+      <section class="project-gallery" id="work" aria-labelledby="projects-title">
+        <div class="gallery-heading"><h2 id="projects-title">Selected projects</h2><p>Working applications, research, and technical prototypes.</p></div>
+
+        <div class="gallery-grid">
+          <a class="visual-card visual-card--featured" href="projects/gait-analysis.html">
+            <div class="card-image gait-motion"><video autoplay muted loop playsinline preload="metadata" poster="assets/gait-qc-loop-poster.png" aria-label="Animated overview of video quality control before gait analysis"><source src="assets/gait-qc-loop.mp4" type="video/mp4" /></video></div>
+            <div class="card-copy"><div><p class="label">NSF REU research · 2026</p><h3>Clinical gait video analysis</h3></div><span>Open project</span><p>Quality control for walking videos before clinical gait analysis begins.</p><small>Python · OpenCV · YOLOv8 · MediaPipe · MeTRAbs</small></div>
+          </a>
+
+          <a class="visual-card nutrition-gallery-card" href="projects/nutrition-tracker.html">
+            <div class="card-image nutrition-image"><img src="assets/nutrition-current-home.png" alt="Current deployed AI Nutrition Tracker dashboard after logging a meal" /></div>
+            <div class="card-copy"><div><p class="label">Full-stack application · Active development</p><h3>AI Nutrition Tracker</h3></div><span>Open project</span><p>Mobile food logging through text, photos, and barcodes with editable nutrition fields, daily analysis, and weight tracking.</p><small>React · TypeScript · Supabase · Gemini · Vite/PWA</small></div>
+          </a>
+
+          <a class="visual-card" href="projects/gym-form-trainer.html">
+            <div class="card-image"><img src="assets/gym-squat.jpg" alt="Actual Gym Form Trainer prototype tracking a squat and counting a repetition" /></div>
+            <div class="card-copy"><div><p class="label">Computer vision + embedded systems · 2025 to 2026</p><h3>Gym Form Trainer</h3></div><span>Open project</span><p>Real-time pose landmarks, joint-angle form scoring, repetition tracking, and physical Arduino feedback.</p><small>Python · OpenCV · MediaPipe · C · Arduino</small></div>
+          </a>
+
+          <a class="visual-card" href="projects/trading.html">
+            <div class="card-image"><img src="assets/trading-winner.png" alt="Stored winning breakout example from the trading analysis system" /></div>
+            <div class="card-copy"><div><p class="label">Data + machine learning · 2026</p><h3>Algorithmic Trading Analysis System</h3></div><span>Open project</span><p>Automated market screening, stored forward outcomes, backtesting, and calibrated breakout scoring.</p><small>Python · Pine Script · SQLite · LightGBM</small></div>
+          </a>
         </div>
 
-        <article class="project featured" id="gait-analysis">
-          <div class="project-number">01</div>
-          <div class="project-body">
-            <div class="project-title-row">
-              <div>
-                <p class="label">Research · June 2026 to present</p>
-                <h3>Clinical gait video analysis</h3>
-              </div>
-              <span class="status">Case study in progress</span>
-            </div>
-            <p class="summary">A pipeline for screening walking recordings, tracking the subject, extracting body landmarks, and preparing gait measurements and reports.</p>
-            <div class="details-grid">
-              <div><span>Work completed</span><p>Video quality checks, person tracking, pose estimation, subject consistency checks, and local LLM report generation.</p></div>
-              <div><span>Tools</span><p>Python, OpenCV, YOLOv8, MediaPipe, MeTRAbs, LangChain, LM Studio</p></div>
-            </div>
-            <a class="project-link" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">FAU project page</a>
-          </div>
-        </article>
-
-        <article class="project featured" id="nutrition-tracker">
-          <div class="project-number">02</div>
-          <div class="project-body">
-            <div class="project-title-row">
-              <div>
-                <p class="label">Application · July 2026 to present</p>
-                <h3>AI Nutrition Tracker</h3>
-              </div>
-              <span class="status available">Walkthrough available</span>
-            </div>
-            <p class="summary">A mobile-first food log with text, photo, and barcode entry. Parsed nutrition fields are reviewed and edited before they are saved.</p>
-            <div class="details-grid">
-              <div><span>Current functions</span><p>Food logging, macro totals, weight history, weekly summaries, food library, meal pattern suggestions, and nutrient gap suggestions.</p></div>
-              <div><span>Tools</span><p>React, TypeScript, Supabase, Gemini, Open Food Facts, Vite/PWA</p></div>
-            </div>
-            <details class="walkthrough">
-              <summary>Watch current walkthrough</summary>
-              <video controls muted playsinline preload="metadata" poster="assets/nutrition-poster.svg">
-                <source src="assets/nutrition-tour.mp4" type="video/mp4" />
-              </video>
-              <p>This walkthrough will be replaced with a project-specific portfolio cut.</p>
-            </details>
-          </div>
-        </article>
-
-        <article class="project featured" id="gym-form-trainer">
-          <div class="project-number">03</div>
-          <div class="project-body">
-            <div class="project-title-row">
-              <div>
-                <p class="label">Computer vision and embedded systems · December 2025 to May 2026</p>
-                <h3>Gym Form Trainer</h3>
-              </div>
-              <span class="status">Demo needed</span>
-            </div>
-            <p class="summary">A webcam application that tracks body landmarks, calculates joint angles, evaluates 3 exercises, counts repetitions, and sends form feedback to an Arduino.</p>
-            <div class="details-grid">
-              <div><span>Exercises</span><p>Squats, bicep curls, and push-ups with exercise-specific checks and temporal smoothing.</p></div>
-              <div><span>Tools</span><p>Python, OpenCV, MediaPipe, NumPy, C, Arduino, serial communication</p></div>
-            </div>
-            <a class="project-link" href="https://github.com/rogertawfik/gym-form-trainer">Source code</a>
-          </div>
-        </article>
-
-        <article class="project" id="trading-analysis">
-          <div class="project-number">04</div>
-          <div class="project-body">
-            <div class="project-title-row">
-              <div>
-                <p class="label">Data and machine learning · February to April 2026</p>
-                <h3>Algorithmic Trading Analysis System</h3>
-              </div>
-              <span class="status">Case study needed</span>
-            </div>
-            <p class="summary">A Python market analysis system that screens more than 5,000 stocks with technical signals and quantitative scoring models for breakout detection.</p>
-            <div class="details-grid">
-              <div><span>Model data</span><p>More than 150,000 labeled observations used to train and calibrate XGBoost scoring models.</p></div>
-              <div><span>Tools</span><p>Python, Pine Script, SQLite, XGBoost</p></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project compact" id="service-mesh">
-          <div class="project-number">05</div>
-          <div class="project-body">
-            <p class="label">Algorithms · November to December 2025</p>
-            <h3>Service Mesh Graph Project</h3>
-            <p class="summary">A weighted graph simulation with BFS reachability, Dijkstra shortest paths, and Prim minimum spanning tree analysis.</p>
-            <p class="tools">Python · Object-oriented programming · Priority queues</p>
-          </div>
-        </article>
-
-        <article class="project compact" id="dino-runner">
-          <div class="project-number">06</div>
-          <div class="project-body">
-            <p class="label">Application · April to May 2025</p>
-            <h3>Dino Runner Game</h3>
-            <p class="summary">A modular Tkinter game with collision detection, jump mechanics, obstacle spawning, a timed event loop, and saved high scores.</p>
-            <p class="tools">Python · Tkinter · Object-oriented programming</p>
-          </div>
-        </article>
+        <div class="coursework-heading"><h2>Coursework</h2></div>
+        <div class="small-project-grid">
+          <article><p class="label">Algorithms</p><h3>Service Mesh Graph</h3><p>Weighted graph simulation with BFS, Dijkstra shortest paths, and Prim minimum spanning tree analysis.</p><small>Python · OOP · Priority queues</small></article>
+          <a href="projects/dino-runner.html"><div><p class="label">Game development</p><h3>Dino Runner</h3><p>A playable browser adaptation of the Python and Tkinter coursework project.</p><small>Python · Tkinter · HTML Canvas</small></div><img src="assets/dino-runner.png" alt="Dino Runner coursework game" /></a>
+        </div>
       </section>
     </main>
-
-    <footer><span>Roger Tawfik</span><span>Natick, Massachusetts · 2026</span></footer>
+    <footer><span>Roger Tawfik</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="https://github.com/rogertawfik">GitHub</a> · <a href="https://linkedin.com/in/rogertawfik">LinkedIn</a></span></footer>
+    <script>if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[autoplay]').forEach((video)=>{video.pause();video.removeAttribute('autoplay');});</script>
   </body>
 </html>

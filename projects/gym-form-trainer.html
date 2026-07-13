@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Gym Form Trainer prototype history by Roger Tawfik." />
+    <title>Gym Form Trainer | Roger Tawfik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="project-page portfolio-v2">
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="../index.html#work">Projects</a><a class="nav-resume" href="../resume.pdf" download>Resume</a><a class="nav-email-text" href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-external" href="https://github.com/rogertawfik">GitHub</a><a class="nav-external" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
+    <main>
+      <section class="case-header">
+        <a class="back" href="../index.html#work">← Back to projects</a>
+        <p class="label">Computer vision prototype · December 2025 to May 2026</p>
+        <h1>Gym Form Trainer</h1>
+        <p class="case-intro">An early computer-vision project that tested whether webcam pose landmarks and joint-angle rules could provide exercise-specific feedback while a repetition was happening.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="prototype-title">
+        <p class="label">Historical prototype</p>
+        <h2 id="prototype-title">Three exercise modes</h2>
+        <div class="exercise-demo">
+          <div>
+            <div class="real-exercise-stage"><img id="exerciseFrame" src="../assets/gym-squat.jpg" alt="Actual Gym Form Trainer squat mode" /></div>
+            <div class="exercise-options"><button class="active" data-exercise="squat">Squat</button><button data-exercise="curl">Bicep curl</button><button data-exercise="pushup">Push-up</button></div>
+          </div>
+          <div class="exercise-proof"><p class="label">Selected frame</p><h3 id="exerciseName">Squat</h3><div><span>1</span><p><b id="repStage">Bottom stage</b><span id="exerciseFeedback">Pose landmarks, form score, and repetition state appear in the live HUD.</span></p></div><div><span>2</span><p><b>Prototype loop</b>Track landmarks, evaluate joint angles, update the rep state, then send feedback.</p></div><div><span>3</span><p><b>Physical extension</b>Later Arduino firmware added LED and buzzer feedback through serial communication.</p></div></div>
+        </div>
+        <p class="adaptation-note">Frames from the February 2026 demonstration. This recording predates the Arduino feedback extension.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="progress-title">
+        <p class="label">Project progression</p>
+        <h2 id="progress-title">What exists and what comes next</h2>
+        <div class="timeline">
+          <div class="timeline-row"><time>February 2026</time><div><h3>Computer-vision prototype</h3><p>MediaPipe landmarks, joint-angle checks, temporal smoothing, exercise-specific feedback, and repetition state tracking.</p></div></div>
+          <div class="timeline-row"><time>Spring 2026</time><div><h3>Physical feedback</h3><p>Arduino firmware added green and red LED states plus buzzer feedback through serial communication.</p></div></div>
+          <div class="timeline-row"><time>After July 2026</time><div><h3>Planned revision</h3><p>Roger plans to revisit the project after his FAU research program and apply what he learned from clinical video quality control and human-movement analysis. This work has not started yet.</p></div></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>Roger Tawfik</span><span>Historical prototype · 2026</span></footer>
+    <script>
+      const exercises = {
+        squat:{name:'Squat',stage:'Bottom stage',feedback:'Pose landmarks, form score, and repetition state appear in the live HUD.',frame:'../assets/gym-squat.jpg',alt:'Actual Gym Form Trainer squat mode'},
+        curl:{name:'Bicep curl',stage:'Top stage',feedback:'The selected frame matches the visible top-stage arm position.',frame:'../assets/gym-curl.jpg',alt:'Actual Gym Form Trainer bicep curl top stage'},
+        pushup:{name:'Push-up',stage:'Bottom stage',feedback:'The prototype evaluates elbow position while tracking the repetition stage.',frame:'../assets/gym-pushup.jpg',alt:'Actual Gym Form Trainer push-up bottom stage'}
+      };
+      document.querySelectorAll('.exercise-options button').forEach(button=>button.addEventListener('click',()=>{const e=exercises[button.dataset.exercise];document.querySelector('.exercise-options .active').classList.remove('active');button.classList.add('active');document.querySelector('#exerciseName').textContent=e.name;document.querySelector('#repStage').textContent=e.stage;document.querySelector('#exerciseFeedback').textContent=e.feedback;document.querySelector('#exerciseFrame').src=e.frame;document.querySelector('#exerciseFrame').alt=e.alt;}));
+    </script>
+  </body>
+</html>

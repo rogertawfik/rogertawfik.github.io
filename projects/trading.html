@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Visual case study for Roger Tawfik's Algorithmic Trading Analysis System." />
+    <title>Trading Analysis System | Roger Tawfik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="project-page portfolio-v2">
+    <header class="site-header">
+      <a class="wordmark" href="../index.html">Roger Tawfik</a>
+      <nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="../index.html#work">Projects</a><a class="nav-resume" href="../resume.pdf" download>Resume</a><a class="nav-email-text" href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-external" href="https://github.com/rogertawfik">GitHub</a><a class="nav-external" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav>
+    </header>
+    <main>
+      <section class="case-header">
+        <a class="back" href="../index.html#work">← Back to projects</a>
+        <p class="label">Python · Pine Script · SQLite · LightGBM</p>
+        <h1>Algorithmic Trading Analysis System</h1>
+        <p class="case-intro"><strong>Problem:</strong> reviewing thousands of charts manually is slow and inconsistent. This system screens 5,000+ stocks, saves each setup, and checks what happened after the signal.</p>
+      </section>
+
+      <section class="case-section proof-band" aria-label="Project proof">
+        <div><strong>5,000+</strong><span>stocks screened</span></div>
+        <div><strong>150,000+</strong><span>labeled observations</span></div>
+        <div><strong>LightGBM</strong><span>calibrated scoring</span></div>
+      </section>
+
+      <section class="case-section" aria-labelledby="pipeline-title">
+        <p class="label">System flow</p>
+        <h2 id="pipeline-title">One repeatable path from signal to evidence</h2>
+        <div class="pipeline">
+          <div><span>01</span><strong>Daily market data</strong></div>
+          <div><span>02</span><strong>Technical features</strong></div>
+          <div><span>03</span><strong>SQLite snapshots</strong></div>
+          <div><span>04</span><strong>Forward outcome labels</strong></div>
+          <div><span>05</span><strong>LightGBM calibration</strong></div>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="examples-title">
+        <p class="label">Stored backtest evidence</p>
+        <h2 id="examples-title">A winner and a failed breakout</h2>
+        <div class="artifact-grid">
+          <figure class="artifact">
+            <img src="../assets/trading-winner.png" alt="ASTS backtest chart labeled big winner" />
+            <figcaption>ASTS was stored as a big-winner outcome. The dashed line marks the evaluated signal date and the shaded region shows the forward window.</figcaption>
+          </figure>
+          <figure class="artifact">
+            <img src="../assets/trading-false-breakout.png" alt="WULF backtest chart labeled false breakout" />
+            <figcaption>WULF was stored as a false breakout after the stop condition occurred during the forward window.</figcaption>
+          </figure>
+        </div>
+        <div class="artifact-notes">
+          <div><h3>Why this matters</h3><p>A strategy cannot be judged from its best examples. Keeping failed setups beside winners makes the scoring logic testable and exposes where a signal breaks down.</p></div>
+          <div><h3>What I learned</h3><p>Historical testing depends on preserving what was known at the signal date. Calibration, data boundaries, and failed examples matter as much as the model choice.</p></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>Roger Tawfik</span><span>Project artifact review · 2026</span></footer>
+  </body>
+</html>
