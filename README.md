@@ -1,4 +1,4 @@
-# Roger Tawfik — Portfolio
+# Roger Tawfik | Portfolio
 
 Personal project portfolio for applied AI, computer vision, and hardware-software systems.
 

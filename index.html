@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Roger Tawfik builds applied AI, computer vision, and hardware-software systems." />
-    <title>Roger Tawfik — Selected Work</title>
+    <meta name="description" content="Projects by Roger Tawfik, a Computer Engineering student at UMass Amherst." />
+    <title>Roger Tawfik | Projects</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -12,110 +12,139 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="wordmark" href="#top" aria-label="Roger Tawfik, home">Roger Tawfik</a>
+      <a class="wordmark" href="#top">Roger Tawfik</a>
       <nav aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
         <a href="https://github.com/rogertawfik">GitHub</a>
+        <a href="https://linkedin.com/in/rogertawfik">LinkedIn</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">Computer engineering · Applied AI</p>
-        <h1 id="hero-title">I turn open-ended ideas into working systems.</h1>
-        <p class="intro">I’m Roger, a Computer Engineering student at UMass Amherst. My work spans computer vision, AI products, and embedded feedback systems.</p>
-        <a class="text-link" href="#work">See selected work <span aria-hidden="true">↓</span></a>
-      </section>
-
-      <section class="work" id="work" aria-labelledby="work-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Selected work</p>
-            <h2 id="work-title">Two ways I build</h2>
-          </div>
-          <div class="project-tabs" role="tablist" aria-label="Choose a featured project">
-            <button id="tab-nutrition" class="project-tab is-active" role="tab" aria-selected="true" aria-controls="nutrition" data-project="nutrition">Product</button>
-            <button id="tab-trainer" class="project-tab" role="tab" aria-selected="false" aria-controls="trainer" data-project="trainer">Systems</button>
+      <section class="profile" aria-labelledby="profile-title">
+        <div>
+          <p class="label">Computer Engineering, UMass Amherst</p>
+          <h1 id="profile-title">Roger Tawfik</h1>
+        </div>
+        <div class="profile-details">
+          <p>NSF REU Researcher at Florida Atlantic University. Expected graduation: May 2028.</p>
+          <div class="profile-links">
+            <a href="mailto:tawfikroger@gmail.com">Email</a>
+            <a href="https://github.com/rogertawfik">GitHub</a>
+            <a href="https://linkedin.com/in/rogertawfik">LinkedIn</a>
           </div>
         </div>
+      </section>
 
-        <article class="project is-active" id="nutrition" role="tabpanel" aria-labelledby="tab-nutrition">
-          <div class="project-copy">
-            <p class="project-index">Currently building · 2026</p>
-            <h3>AI Nutrition Tracker</h3>
-            <p class="project-lede">A mobile-first food log that turns text, photos, and barcodes into editable nutrition entries—then uses the history to surface useful patterns.</p>
-            <dl class="project-facts">
-              <div><dt>Problem</dt><dd>Food logging is slow, and automated estimates need a human review step.</dd></div>
-              <div><dt>Approach</dt><dd>Parse first, review and edit, then save to a personal food library.</dd></div>
-              <div><dt>Built with</dt><dd>React, TypeScript, Supabase, Gemini, Open Food Facts, Vite/PWA</dd></div>
-            </dl>
-            <p class="proof-note">Walkthrough captured from the working application.</p>
-          </div>
-          <div class="project-media phone-stage">
-            <video controls muted playsinline preload="metadata" poster="assets/nutrition-poster.svg">
-              <source src="assets/nutrition-tour.mp4" type="video/mp4" />
-              Your browser does not support embedded video.
-            </video>
+      <section class="projects" id="projects" aria-labelledby="projects-title">
+        <div class="projects-heading">
+          <h2 id="projects-title">Projects</h2>
+          <p>Source code, walkthroughs, and technical details will be added as each case study is completed.</p>
+        </div>
+
+        <article class="project featured" id="gait-analysis">
+          <div class="project-number">01</div>
+          <div class="project-body">
+            <div class="project-title-row">
+              <div>
+                <p class="label">Research · June 2026 to present</p>
+                <h3>Clinical gait video analysis</h3>
+              </div>
+              <span class="status">Case study in progress</span>
+            </div>
+            <p class="summary">A pipeline for screening walking recordings, tracking the subject, extracting body landmarks, and preparing gait measurements and reports.</p>
+            <div class="details-grid">
+              <div><span>Work completed</span><p>Video quality checks, person tracking, pose estimation, subject consistency checks, and local LLM report generation.</p></div>
+              <div><span>Tools</span><p>Python, OpenCV, YOLOv8, MediaPipe, MeTRAbs, LangChain, LM Studio</p></div>
+            </div>
+            <a class="project-link" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">FAU project page</a>
           </div>
         </article>
 
-        <article class="project" id="trainer" role="tabpanel" aria-labelledby="tab-trainer" hidden>
-          <div class="project-copy">
-            <p class="project-index">Completed · 2026</p>
-            <h3>Gym Form Trainer</h3>
-            <p class="project-lede">A real-time exercise coach that interprets body landmarks, evaluates movement, counts repetitions, and sends feedback to physical hardware.</p>
-            <dl class="project-facts">
-              <div><dt>Problem</dt><dd>Useful form feedback must arrive while the movement is happening.</dd></div>
-              <div><dt>Approach</dt><dd>Joint-angle rules and smoothed pose landmarks drive visual and Arduino feedback.</dd></div>
-              <div><dt>Built with</dt><dd>Python, OpenCV, MediaPipe, C, Arduino, serial communication</dd></div>
-            </dl>
-            <a class="text-link" href="https://github.com/rogertawfik/gym-form-trainer">View source on GitHub <span aria-hidden="true">↗</span></a>
+        <article class="project featured" id="nutrition-tracker">
+          <div class="project-number">02</div>
+          <div class="project-body">
+            <div class="project-title-row">
+              <div>
+                <p class="label">Application · July 2026 to present</p>
+                <h3>AI Nutrition Tracker</h3>
+              </div>
+              <span class="status available">Walkthrough available</span>
+            </div>
+            <p class="summary">A mobile-first food log with text, photo, and barcode entry. Parsed nutrition fields are reviewed and edited before they are saved.</p>
+            <div class="details-grid">
+              <div><span>Current functions</span><p>Food logging, macro totals, weight history, weekly summaries, food library, meal pattern suggestions, and nutrient gap suggestions.</p></div>
+              <div><span>Tools</span><p>React, TypeScript, Supabase, Gemini, Open Food Facts, Vite/PWA</p></div>
+            </div>
+            <details class="walkthrough">
+              <summary>Watch current walkthrough</summary>
+              <video controls muted playsinline preload="metadata" poster="assets/nutrition-poster.svg">
+                <source src="assets/nutrition-tour.mp4" type="video/mp4" />
+              </video>
+              <p>This walkthrough will be replaced with a project-specific portfolio cut.</p>
+            </details>
           </div>
-          <div class="project-media trainer-stage" aria-label="Interactive system sketch of pose landmarks becoming feedback">
-            <div class="stage-label"><span>System sketch</span><span id="motion-label">Tracking</span></div>
-            <svg class="pose" viewBox="0 0 440 420" role="img" aria-labelledby="pose-title">
-              <title id="pose-title">Animated pose landmark system sketch</title>
-              <g class="guide-lines">
-                <path d="M28 350 H412"/><path d="M28 72 H412"/><path d="M66 44 V376"/><path d="M374 44 V376"/>
-              </g>
-              <g class="skeleton">
-                <circle cx="214" cy="86" r="26" />
-                <path d="M214 112 L214 216 L176 282 L158 362" />
-                <path d="M214 216 L258 282 L286 360" />
-                <path d="M214 140 L154 186 L116 250" />
-                <path d="M214 140 L278 180 L328 222" />
-                <g class="joints">
-                  <circle cx="214" cy="140" r="6"/><circle cx="214" cy="216" r="6"/>
-                  <circle cx="154" cy="186" r="6"/><circle cx="116" cy="250" r="6"/>
-                  <circle cx="278" cy="180" r="6"/><circle cx="328" cy="222" r="6"/>
-                  <circle cx="176" cy="282" r="6"/><circle cx="158" cy="362" r="6"/>
-                  <circle cx="258" cy="282" r="6"/><circle cx="286" cy="360" r="6"/>
-                </g>
-              </g>
-            </svg>
-            <button class="motion-button" id="motion-button" type="button">Pause movement</button>
-            <div class="signal-flow" aria-label="Processing flow">
-              <span>Landmarks</span><i aria-hidden="true">→</i><span>Angles</span><i aria-hidden="true">→</i><span>Feedback</span>
+        </article>
+
+        <article class="project featured" id="gym-form-trainer">
+          <div class="project-number">03</div>
+          <div class="project-body">
+            <div class="project-title-row">
+              <div>
+                <p class="label">Computer vision and embedded systems · December 2025 to May 2026</p>
+                <h3>Gym Form Trainer</h3>
+              </div>
+              <span class="status">Demo needed</span>
+            </div>
+            <p class="summary">A webcam application that tracks body landmarks, calculates joint angles, evaluates 3 exercises, counts repetitions, and sends form feedback to an Arduino.</p>
+            <div class="details-grid">
+              <div><span>Exercises</span><p>Squats, bicep curls, and push-ups with exercise-specific checks and temporal smoothing.</p></div>
+              <div><span>Tools</span><p>Python, OpenCV, MediaPipe, NumPy, C, Arduino, serial communication</p></div>
+            </div>
+            <a class="project-link" href="https://github.com/rogertawfik/gym-form-trainer">Source code</a>
+          </div>
+        </article>
+
+        <article class="project" id="trading-analysis">
+          <div class="project-number">04</div>
+          <div class="project-body">
+            <div class="project-title-row">
+              <div>
+                <p class="label">Data and machine learning · February to April 2026</p>
+                <h3>Algorithmic Trading Analysis System</h3>
+              </div>
+              <span class="status">Case study needed</span>
+            </div>
+            <p class="summary">A Python market analysis system that screens more than 5,000 stocks with technical signals and quantitative scoring models for breakout detection.</p>
+            <div class="details-grid">
+              <div><span>Model data</span><p>More than 150,000 labeled observations used to train and calibrate XGBoost scoring models.</p></div>
+              <div><span>Tools</span><p>Python, Pine Script, SQLite, XGBoost</p></div>
             </div>
           </div>
         </article>
-      </section>
 
-      <section class="about" id="about" aria-labelledby="about-title">
-        <p class="eyebrow">About</p>
-        <div>
-          <h2 id="about-title">I like the point where software meets the physical world.</h2>
-          <p>As an NSF REU researcher at Florida Atlantic University, I’m developing a clinical gait-video analysis pipeline. Outside research, I build projects that help me understand an entire system—from interface to model to hardware.</p>
-          <div class="contact-links">
-            <a class="text-link" href="mailto:tawfikroger@gmail.com">Email me <span aria-hidden="true">↗</span></a>
-            <a class="text-link" href="https://linkedin.com/in/rogertawfik">LinkedIn <span aria-hidden="true">↗</span></a>
+        <article class="project compact" id="service-mesh">
+          <div class="project-number">05</div>
+          <div class="project-body">
+            <p class="label">Algorithms · November to December 2025</p>
+            <h3>Service Mesh Graph Project</h3>
+            <p class="summary">A weighted graph simulation with BFS reachability, Dijkstra shortest paths, and Prim minimum spanning tree analysis.</p>
+            <p class="tools">Python · Object-oriented programming · Priority queues</p>
           </div>
-        </div>
+        </article>
+
+        <article class="project compact" id="dino-runner">
+          <div class="project-number">06</div>
+          <div class="project-body">
+            <p class="label">Application · April to May 2025</p>
+            <h3>Dino Runner Game</h3>
+            <p class="summary">A modular Tkinter game with collision detection, jump mechanics, obstacle spawning, a timed event loop, and saved high scores.</p>
+            <p class="tools">Python · Tkinter · Object-oriented programming</p>
+          </div>
+        </article>
       </section>
     </main>
 
     <footer><span>Roger Tawfik</span><span>Natick, Massachusetts · 2026</span></footer>
-    <script src="script.js"></script>
   </body>
 </html>
