@@ -1,12 +1,50 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="AI Nutrition Tracker project by Roger Tawfik." /><title>AI Nutrition Tracker | Roger Tawfik</title><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="../styles.css" /></head>
-  <body class="project-page portfolio-v2">
-    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="../index.html#work">Projects</a><a class="nav-resume" href="../resume.pdf" download>Resume</a><a class="nav-email-text" href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-external" href="https://github.com/rogertawfik">GitHub</a><a class="nav-external" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
-    <main>
-      <section class="case-header compact-case-header"><a class="back" href="../index.html#work">← Back to projects</a><p class="label">Full-stack application · July 2026 to present</p><h1>AI Nutrition Tracker</h1><p class="case-intro">A mobile-first PWA for logging food through natural language, photos, and barcodes, then reviewing parsed nutrition before it is saved.</p><p><a class="project-link" href="https://calorie-tracker-app-azure.vercel.app/">Open live application</a></p><div class="case-facts"><div><span>Role</span><p>Independent developer</p></div><div><span>Core problem</span><p>Make detailed food logging faster</p></div><div><span>Tools</span><p>React, TypeScript, Supabase, Gemini, Vite/PWA</p></div></div></section>
-      <section class="case-section compact-section"><p class="label">Current deployed application</p><h2>Real screens from the working build</h2><div class="nutrition-screen-grid"><figure><img src="../assets/nutrition-current-home.png" alt="Current Nutrition Tracker dashboard after logging a sample meal" /><figcaption>Logged foods, totals, and a daily coaching insight</figcaption></figure><figure><img src="../assets/nutrition-current-add.png" alt="Current natural-language food entry screen" /><figcaption>Natural-language, photo, and barcode entry</figcaption></figure><figure><img src="../assets/nutrition-current-review.png" alt="Current editable nutrition review screen" /><figcaption>Gemini-parsed foods reviewed before logging</figcaption></figure><figure><img src="../assets/nutrition-current-analysis.png" alt="Current Nutrition Tracker analysis screen" /><figcaption>Learning-based maintenance and weekly averages</figcaption></figure></div></section>
-      <section class="case-section compact-section"><p class="label">Workflow</p><h2>Review before log</h2><div class="dense-pipeline nutrition-flow"><div><b>Input</b><span>Text, photo, or barcode</span><small>Choose the fastest entry method</small></div><i></i><div><b>Parse</b><span>Structured nutrition</span><small>Split a meal into editable foods</small></div><i></i><div><b>Review</b><span>Confirm the fields</span><small>Correct values before saving</small></div><i></i><div><b>Track</b><span>Update the day</span><small>Calories, macros, and nutrients</small></div></div></section>
-    </main><footer><span>Roger Tawfik</span><span>Active project · 2026</span></footer>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI Nutrition Tracker App built by Roger Tawfik with React, TypeScript, Supabase, and Gemini." />
+    <title>AI Nutrition Tracker App | Roger Tawfik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="portfolio project-page nutrition-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
+    <main id="main">
+      <section class="case-header">
+        <a class="back" href="../index.html#work">← Back to selected projects</a>
+        <p class="case-kicker">Full-stack application · July 2026 to present</p>
+        <h1>AI Nutrition Tracker App</h1>
+        <p class="case-intro">I built a mobile-first PWA for food logging through natural language, photos, and barcodes. Every AI-parsed entry stays editable before it is saved.</p>
+        <div class="case-actions"><a class="stage-action" href="https://calorie-tracker-app-azure.vercel.app/">Open live application →</a></div>
+        <dl class="case-facts">
+          <div><dt>Role</dt><dd>Independent developer</dd></div>
+          <div><dt>Problem</dt><dd>Detailed food logging takes too much manual entry</dd></div>
+          <div><dt>My contribution</dt><dd>Mobile product, Supabase backend, AI parsing, and review-before-log workflow</dd></div>
+          <div><dt>State</dt><dd>Deployed and in active development</dd></div>
+        </dl>
+      </section>
+
+      <section class="case-section" aria-labelledby="screens-title">
+        <header class="case-section-heading"><div><p class="section-index">Current product</p><h2 id="screens-title">Real screens from the deployed build</h2></div><p>The application covers capture, review, daily totals, nutrition analysis, and weight tracking. These screens come from the working product.</p></header>
+        <div class="nutrition-screens">
+          <figure><img src="../assets/nutrition-current-home.png" width="430" height="1129" loading="lazy" alt="Nutrition Tracker dashboard after logging a sample meal" /><figcaption>Logged foods, daily totals, and a coaching insight</figcaption></figure>
+          <figure><img src="../assets/nutrition-current-add.png" width="430" height="932" loading="lazy" alt="Natural-language, photo, and barcode food entry screen" /><figcaption>Text, photo, and barcode entry</figcaption></figure>
+          <figure><img src="../assets/nutrition-current-review.png" width="430" height="1307" loading="lazy" alt="Editable nutrition review screen before logging" /><figcaption>Review and correct parsed foods</figcaption></figure>
+          <figure><img src="../assets/nutrition-current-analysis.png" width="430" height="932" loading="lazy" alt="Nutrition analysis screen with maintenance and weekly averages" /><figcaption>Daily analysis and weekly averages</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="flow-title">
+        <header class="case-section-heading"><div><p class="section-index">Core product decision</p><h2 id="flow-title">Review before log</h2></div><p>The parsed result is a draft. The user can correct every food and nutrition field before it reaches the daily record.</p></header>
+        <div class="product-flow" aria-label="Nutrition entry workflow"><div><b>Input</b><span>Text, photo, or barcode</span><small>Choose the fastest entry method.</small></div><div><b>Parse</b><span>Structured foods</span><small>Split a meal into editable items.</small></div><div><b>Review</b><span>Check each field</span><small>Correct values before saving.</small></div><div><b>Track</b><span>Update the day</span><small>Calories, macros, and nutrients.</small></div></div>
+      </section>
+
+      <nav class="project-nav" aria-label="Project navigation"><a href="gait-analysis.html"><span>Previous project</span><strong>← Clinical gait video analysis</strong></a><a href="gym-form-trainer.html"><span>Next project</span><strong>Gym Form Trainer →</strong></a></nav>
+    </main>
+    <footer class="site-footer"><span>Roger Tawfik · Product case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../resume.pdf" download>Résumé</a></span></footer>
   </body>
 </html>

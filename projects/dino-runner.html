@@ -7,35 +7,37 @@
     <title>Dino Runner | Roger Tawfik</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body class="project-page portfolio-v2">
-    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="../index.html#work">Projects</a><a class="nav-resume" href="../resume.pdf" download>Resume</a><a class="nav-email-text" href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-external" href="https://github.com/rogertawfik">GitHub</a><a class="nav-external" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
-    <main>
+  <body class="portfolio project-page game-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
+    <main id="main">
       <section class="case-header game-header">
         <a class="back" href="../index.html#work">← Back to projects</a>
-        <p class="label">Coursework · Python and Tkinter</p>
+        <p class="case-kicker">Coursework · Python and Tkinter</p>
         <h1>Dino Runner</h1>
         <p class="case-intro">The original project used a timed Tkinter loop, pixel-based characters, randomized obstacles, collision detection, pause controls, and saved high scores. This browser adaptation preserves those core mechanics so it can be played here.</p>
       </section>
 
       <section class="case-section game-section" aria-labelledby="play-title">
-        <div class="game-title-row"><div><p class="label">Browser adaptation</p><h2 id="play-title">Try the game</h2></div><div class="game-score"><span>Score <strong id="score">0</strong></span><span>Best <strong id="best">0</strong></span></div></div>
+        <div class="game-title-row"><div><p class="section-index">Browser adaptation</p><h2 id="play-title">Try the game</h2></div><div class="game-score"><span>Score <strong id="score">0</strong></span><span>Best <strong id="best">0</strong></span></div></div>
         <div class="game-shell" id="gameShell">
           <canvas id="game" width="960" height="420" aria-label="Dino Runner game"></canvas>
           <div class="game-message" id="gameMessage"><strong>Dino Runner</strong><span>Press Start or S</span></div>
         </div>
         <div class="game-controls">
-          <button id="startButton" type="button">Start</button>
+          <button class="primary" id="startButton" type="button">Start</button>
           <button id="jumpButton" type="button">Jump</button>
           <button id="pauseButton" type="button">Pause</button>
           <p>Keyboard: S start · Space jump · P pause · R restart</p>
         </div>
         <p class="adaptation-note">Browser adaptation of a Python and Tkinter school project. The portfolio version is implemented in HTML Canvas so it can be played without installing anything.</p>
       </section>
+      <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="gait-analysis.html"><span>Research flagship</span><strong>Clinical gait video analysis →</strong></a></nav>
     </main>
-    <footer><span>Roger Tawfik</span><span>Playable coursework adaptation · 2026</span></footer>
+    <footer class="site-footer"><span>Roger Tawfik · Playable coursework</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../resume.pdf" download>Résumé</a></span></footer>
     <script>
       const canvas = document.querySelector('#game');
       const ctx = canvas.getContext('2d');

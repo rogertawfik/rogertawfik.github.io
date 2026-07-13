@@ -7,23 +7,70 @@
     <title>Clinical Gait Video Analysis | Roger Tawfik</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body class="project-page portfolio-v2">
-    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="../index.html#work">Projects</a><a class="nav-resume" href="../resume.pdf" download>Resume</a><span class="nav-socials"><a class="icon-link nav-email" href="mailto:tawfikroger@gmail.com" aria-label="Email Roger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3V5Zm2 2v.5l7 5 7-5V7H5Zm14 10V9.9l-7 5-7-5V17h14Z"/></svg></a><a class="icon-link" href="https://github.com/rogertawfik" aria-label="Roger on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a><a class="icon-link" href="https://linkedin.com/in/rogertawfik" aria-label="Roger on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 7.1A2.1 2.1 0 1 0 5.2 3a2.1 2.1 0 0 0 0 4.1ZM3.4 21h3.7V9H3.4v12ZM9.3 9H13v1.6h.05c.51-.97 1.77-2 3.64-2 3.9 0 4.62 2.57 4.62 5.91V21h-3.7v-5.75c0-1.37-.03-3.14-1.91-3.14-1.92 0-2.21 1.5-2.21 3.04V21H9.3V9Z"/></svg></a></span></nav></header>
-    <main>
-      <section class="case-header compact-case-header gait-simple-header"><a class="back" href="../index.html#work">← Back to projects</a><p class="label">NSF REU research · June to July 2026</p><h1>Clinical gait video analysis</h1><p class="case-intro">A research prototype that checks whether a walking video is usable before clinical gait analysis begins.</p><div class="case-facts"><div><span>Role</span><p>Undergraduate researcher</p></div><div><span>Goal</span><p>Identify recording problems early</p></div><div><span>Tools</span><p>Python, OpenCV, YOLOv8, MediaPipe, MeTRAbs</p></div></div></section>
+  <body class="portfolio project-page gait-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
+    <main id="main">
+      <section class="case-header">
+        <a class="back" href="../index.html#work">← Back to selected projects</a>
+        <p class="case-kicker">NSF REU research · June to July 2026</p>
+        <h1>Clinical gait video analysis</h1>
+        <p class="case-intro">I developed a quality-control pipeline that checks walking recordings before pose estimation and gait-metric computation. The system catches recording problems early, while a useful retake is still possible.</p>
+        <dl class="case-facts">
+          <div><dt>Role</dt><dd>Undergraduate researcher</dd></div>
+          <div><dt>Problem</dt><dd>Unusable video can invalidate downstream measurements</dd></div>
+          <div><dt>My contribution</dt><dd>Quality gates, person/pose cross-checks, analysis handoff, and dual-audience reporting</dd></div>
+          <div><dt>State</dt><dd>Ongoing research prototype</dd></div>
+        </dl>
+      </section>
 
-      <section class="case-section gait-motion-section"><video autoplay muted loop playsinline preload="metadata" poster="../assets/gait-qc-loop-poster.png" aria-label="Animated overview of the Gait QC workflow"><source src="../assets/gait-qc-loop.mp4" type="video/mp4" /></video></section>
+      <section class="case-section" aria-labelledby="ownership-title">
+        <header class="case-section-heading"><div><p class="section-index">What I built</p><h2 id="ownership-title">My part of the pipeline</h2></div><p>Public, high-level scope only. Participant recordings, clinical data, private code, and unpublished implementation details stay out of this portfolio.</p></header>
+        <div class="ownership-map">
+          <article><span>Quality gates</span><h3>Screen the recording</h3><p>Built a three-tier system for lighting, focus, subject visibility, and walking orientation.</p></article>
+          <article><span>Person and pose</span><h3>Cross-check usability</h3><p>Combined YOLOv8 person tracking with MediaPipe pose estimation across frames.</p></article>
+          <article><span>Analysis handoff</span><h3>Extract joint data</h3><p>Developed the pipeline to support body-joint extraction and gait-metric computation.</p></article>
+          <article><span>Reporting</span><h3>Write for 2 audiences</h3><p>Integrated a local LLM for technical summaries and plain-language clinical guidance.</p></article>
+        </div>
+      </section>
 
-      <section class="case-section ownership-section" aria-labelledby="ownership-title"><div class="ownership-heading"><div><h2 id="ownership-title">My contribution to the pipeline</h2></div><p>Public, high-level scope only. No participant recordings, clinical data, private code, or unpublished implementation detail.</p></div><div class="module-map" aria-label="Roger's contributions to the gait quality-control pipeline"><article><span>Quality gates</span><h3>Screen recordings before analysis</h3><p>Built a three-tier system for lighting, focus, subject visibility, and walking orientation.</p></article><article><span>Person and pose</span><h3>Cross-check subject usability</h3><p>Combined YOLOv8 person tracking with MediaPipe pose estimation across frames.</p></article><article><span>Analysis handoff</span><h3>Support downstream metrics</h3><p>Developed the pipeline to extract body-joint data and support gait-metric computation.</p></article><article><span>Reporting</span><h3>Write for two audiences</h3><p>Integrated a local LLM to generate technical summaries and plain-language clinical guidance.</p></article></div></section>
+      <section class="case-section" aria-labelledby="workbench-title">
+        <header class="case-section-heading"><div><p class="section-index">Synthetic demonstration</p><h2 id="workbench-title">A bad recording stops here</h2></div><p>Try the conditions below. This diagram uses a synthetic subject and shows the public quality-control concept, with no participant footage or research data.</p></header>
+        <div class="gait-workbench">
+          <div>
+            <div class="qc-stage" id="qcStage" data-condition="usable" aria-label="Synthetic walking-video quality-control demonstration">
+              <span class="synthetic-tag">Synthetic input</span><div class="walk-zone" aria-hidden="true"></div><div class="synthetic-person" aria-hidden="true"><i class="head"></i><i class="torso"></i><i class="arm left"></i><i class="arm right"></i><i class="leg left"></i><i class="leg right"></i></div><div class="occluder" aria-hidden="true"></div>
+            </div>
+            <div class="qc-options" aria-label="Recording condition">
+              <button type="button" data-condition="usable" aria-pressed="true">Usable</button><button type="button" data-condition="offcenter" aria-pressed="false">Off center</button><button type="button" data-condition="dark" aria-pressed="false">Low light</button><button type="button" data-condition="occluded" aria-pressed="false">Occluded</button>
+            </div>
+          </div>
+          <aside class="qc-panel" aria-live="polite"><p class="section-index">QC result</p><h3 id="qcTitle">Recording can proceed</h3><div class="qc-results"><div><span>Subject visible</span><strong id="visibilityResult">Pass</strong></div><div><span>Walking position</span><strong id="positionResult">Pass</strong></div><div><span>Lighting</span><strong id="lightingResult">Pass</strong></div></div><p class="qc-decision" id="qcDecision">Send to pose estimation and gait analysis.</p></aside>
+        </div>
+      </section>
 
-      <section class="case-section compact-section gait-simple-section"><div><h2>Video quality affects every measurement that follows</h2><p>A walking video can be difficult to analyze when the subject is not fully visible, the view is obstructed, or the walking path is unsuitable.</p></div><div class="gait-simple-flow" aria-label="Gait video quality-control workflow"><span>Walking video</span><i></i><span>Quality control</span><i></i><span>Gait analysis</span></div></section>
+      <section class="case-section"><div class="privacy-note"><strong>Research privacy</strong><p>This case study is intentionally limited to the project goal, public system design, and my responsibilities. It contains no participant recordings or clinical data.</p></div></section>
 
-      <section class="case-section compact-section gait-privacy"><strong>Research privacy</strong><p>This overview is intentionally limited to the project goal and general system design. It contains no participant recordings or clinical data.</p></section>
+      <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="nutrition-tracker.html"><span>Next project</span><strong>AI Nutrition Tracker App →</strong></a></nav>
     </main>
-    <footer><span>Roger Tawfik</span><span>Research prototype · 2026</span></footer>
-    <script>if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[autoplay]').forEach((video)=>{video.pause();video.removeAttribute('autoplay');});</script>
+    <footer class="site-footer"><span>Roger Tawfik · Research case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../resume.pdf" download>Résumé</a></span></footer>
+    <script>
+      const results = {
+        usable: { title: 'Recording can proceed', visibility: 'Pass', position: 'Pass', lighting: 'Pass', decision: 'Send to pose estimation and gait analysis.' },
+        offcenter: { title: 'Retake recommended', visibility: 'Pass', position: 'Fail', lighting: 'Pass', decision: 'Reposition the camera before analysis.' },
+        dark: { title: 'Retake required', visibility: 'Fail', position: 'Pass', lighting: 'Fail', decision: 'Increase lighting and record again.' },
+        occluded: { title: 'Retake required', visibility: 'Fail', position: 'Pass', lighting: 'Pass', decision: 'Clear the walking path before recording.' }
+      };
+      const stage = document.getElementById('qcStage');
+      const setResult = (id, value) => { const el = document.getElementById(id); el.textContent = value; el.classList.toggle('fail', value === 'Fail'); };
+      document.querySelectorAll('.qc-options button').forEach((button) => button.addEventListener('click', () => {
+        document.querySelectorAll('.qc-options button').forEach((item) => item.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true'); stage.dataset.condition = button.dataset.condition;
+        const result = results[button.dataset.condition]; document.getElementById('qcTitle').textContent = result.title; setResult('visibilityResult', result.visibility); setResult('positionResult', result.position); setResult('lightingResult', result.lighting); document.getElementById('qcDecision').textContent = result.decision;
+      }));
+    </script>
   </body>
 </html>

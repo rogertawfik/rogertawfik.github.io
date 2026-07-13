@@ -3,63 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Visual case study for Roger Tawfik's Algorithmic Trading Analysis System." />
+    <meta name="description" content="Algorithmic Trading Analysis System built by Roger Tawfik with Python, SQLite, Pine Script, and LightGBM." />
     <title>Trading Analysis System | Roger Tawfik</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body class="project-page portfolio-v2">
-    <header class="site-header">
-      <a class="wordmark" href="../index.html">Roger Tawfik</a>
-      <nav aria-label="Primary navigation" class="top-nav"><a class="nav-work" href="../index.html#work">Projects</a><a class="nav-resume" href="../resume.pdf" download>Resume</a><a class="nav-email-text" href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-external" href="https://github.com/rogertawfik">GitHub</a><a class="nav-external" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav>
-    </header>
-    <main>
+  <body class="portfolio project-page trading-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
+    <main id="main">
       <section class="case-header">
-        <a class="back" href="../index.html#work">← Back to projects</a>
-        <p class="label">Python · Pine Script · SQLite · LightGBM</p>
+        <a class="back" href="../index.html#work">← Back to selected projects</a>
+        <p class="case-kicker">Data + applied ML · February to April 2026</p>
         <h1>Algorithmic Trading Analysis System</h1>
-        <p class="case-intro"><strong>Problem:</strong> reviewing thousands of charts manually is slow and inconsistent. This system screens 5,000+ stocks, saves each setup, and checks what happened after the signal.</p>
+        <p class="case-intro">I engineered a Python system that screens more than 5,000 stocks, stores each setup, checks the forward outcome, and calibrates a probabilistic trade-quality score.</p>
+        <dl class="case-facts">
+          <div><dt>Role</dt><dd>Independent developer</dd></div>
+          <div><dt>Problem</dt><dd>Manual chart review is slow and inconsistent</dd></div>
+          <div><dt>My contribution</dt><dd>Screening, labeled observations, SQLite caching, LightGBM calibration, and Pine Script backtesting</dd></div>
+          <div><dt>State</dt><dd>Completed analysis system</dd></div>
+        </dl>
       </section>
 
-      <section class="case-section proof-band" aria-label="Project proof">
-        <div><strong>5,000+</strong><span>stocks screened</span></div>
-        <div><strong>150,000+</strong><span>labeled observations</span></div>
-        <div><strong>LightGBM</strong><span>calibrated scoring</span></div>
+      <section class="case-section" aria-labelledby="proof-title">
+        <header class="case-section-heading"><div><p class="section-index">System scale</p><h2 id="proof-title">Built to preserve every outcome</h2></div><p>The dataset keeps failed setups, neutral outcomes, and trades that never triggered alongside the winners.</p></header>
+        <div class="trading-proof" aria-label="Trading system evidence"><div><strong>5,000+</strong><span>stocks screened</span></div><div><strong>150,000+</strong><span>labeled observations</span></div><div><strong>LightGBM</strong><span>calibrated scoring</span></div></div>
       </section>
 
       <section class="case-section" aria-labelledby="pipeline-title">
-        <p class="label">System flow</p>
-        <h2 id="pipeline-title">One repeatable path from signal to evidence</h2>
-        <div class="pipeline">
-          <div><span>01</span><strong>Daily market data</strong></div>
-          <div><span>02</span><strong>Technical features</strong></div>
-          <div><span>03</span><strong>SQLite snapshots</strong></div>
-          <div><span>04</span><strong>Forward outcome labels</strong></div>
-          <div><span>05</span><strong>LightGBM calibration</strong></div>
-        </div>
+        <header class="case-section-heading"><div><p class="section-index">Ordered system flow</p><h2 id="pipeline-title">From signal to stored outcome</h2></div><p>Each stage preserves what was known at the signal date before the result enters the model dataset.</p></header>
+        <div class="pipeline"><div><span>01</span><strong>Daily market data</strong></div><div><span>02</span><strong>Technical features</strong></div><div><span>03</span><strong>SQLite snapshot</strong></div><div><span>04</span><strong>Forward outcome</strong></div><div><span>05</span><strong>Score calibration</strong></div></div>
       </section>
 
-      <section class="case-section" aria-labelledby="examples-title">
-        <p class="label">Stored backtest evidence</p>
-        <h2 id="examples-title">A winner and a failed breakout</h2>
-        <div class="artifact-grid">
-          <figure class="artifact">
-            <img src="../assets/trading-winner.png" alt="ASTS backtest chart labeled big winner" />
-            <figcaption>ASTS was stored as a big-winner outcome. The dashed line marks the evaluated signal date and the shaded region shows the forward window.</figcaption>
-          </figure>
-          <figure class="artifact">
-            <img src="../assets/trading-false-breakout.png" alt="WULF backtest chart labeled false breakout" />
-            <figcaption>WULF was stored as a false breakout after the stop condition occurred during the forward window.</figcaption>
-          </figure>
-        </div>
-        <div class="artifact-notes">
-          <div><h3>Why this matters</h3><p>A strategy cannot be judged from its best examples. Keeping failed setups beside winners makes the scoring logic testable and exposes where a signal breaks down.</p></div>
-          <div><h3>What I learned</h3><p>Historical testing depends on preserving what was known at the signal date. Calibration, data boundaries, and failed examples matter as much as the model choice.</p></div>
-        </div>
+      <section class="case-section" aria-labelledby="artifacts-title">
+        <header class="case-section-heading"><div><p class="section-index">Stored backtest artifacts</p><h2 id="artifacts-title">A winner beside a failure</h2></div><p>Keeping both examples makes the scoring logic testable and shows where a breakout signal succeeds or breaks down.</p></header>
+        <div class="artifact-grid"><figure><img src="../assets/trading-winner.png" width="1919" height="1166" loading="lazy" alt="ASTS backtest chart labeled big winner" /><figcaption>ASTS was stored as a big-winner outcome. The dashed line marks the signal date and the shaded region shows the forward window.</figcaption></figure><figure><img src="../assets/trading-false-breakout.png" width="1922" height="1166" loading="lazy" alt="WULF backtest chart labeled false breakout" /><figcaption>WULF was stored as a false breakout after the stop condition occurred during the forward window.</figcaption></figure></div>
+        <div class="artifact-notes"><div><h3>Why both examples matter</h3><p>Successful setups alone would distort the scoring logic. The stored labels keep winners, failed setups, neutral outcomes, and setups that never triggered.</p></div><div><h3>What the system tests</h3><p>Historical testing depends on preserving the information available at the signal date. Data boundaries and failed examples matter as much as model choice.</p></div></div>
       </section>
+
+      <nav class="project-nav" aria-label="Project navigation"><a href="gym-form-trainer.html"><span>Previous project</span><strong>← Gym Form Trainer</strong></a><a href="../index.html#work"><span>Continue</span><strong>All selected projects →</strong></a></nav>
     </main>
-    <footer><span>Roger Tawfik</span><span>Project artifact review · 2026</span></footer>
+    <footer class="site-footer"><span>Roger Tawfik · Technical case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../resume.pdf" download>Résumé</a></span></footer>
   </body>
 </html>
