@@ -16,15 +16,24 @@
     <main id="main">
       <section class="case-header">
         <a class="back" href="../index.html#work">← Back to selected projects</a>
-        <p class="case-kicker">NSF REU research · June to July 2026</p>
+        <p class="case-kicker">NSF REU Research · June to July 2026</p>
         <h1>Clinical gait video analysis</h1>
         <p class="case-intro">I developed a quality-control pipeline that checks walking recordings before pose estimation and gait-metric computation. The system catches recording problems early, while a useful retake is still possible.</p>
+        <a class="research-affiliation" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">
+          <img src="../assets/fau-logo.png" width="60" height="48" alt="" />
+          <span>Official FAU Project · I-SENSE NSF REU<strong>Research led by Dr. Behnaz Ghoraani ↗</strong></span>
+        </a>
         <dl class="case-facts">
-          <div><dt>Role</dt><dd>Undergraduate researcher</dd></div>
+          <div><dt>Role</dt><dd>Undergraduate Researcher</dd></div>
           <div><dt>Problem</dt><dd>Unusable video can invalidate downstream measurements</dd></div>
           <div><dt>My contribution</dt><dd>Quality gates, person/pose cross-checks, analysis handoff, and dual-audience reporting</dd></div>
-          <div><dt>State</dt><dd>Ongoing research prototype</dd></div>
+          <div><dt>State</dt><dd>Android + iOS implementation underway; publication in preparation</dd></div>
         </dl>
+      </section>
+
+      <section class="case-section" aria-labelledby="performance-title">
+        <header class="case-section-heading"><div><p class="section-index">Measured result</p><h2 id="performance-title">Faster checks, identical decisions</h2></div><p>Batching the person-detection work cut repeated model overhead while preserving every validation verdict.</p></header>
+        <div class="benchmark-strip" aria-label="Gait quality-control performance results"><div><strong>~2×</strong><span>Full QC speedup, from about 40 seconds to 20</span></div><div><strong>18/18</strong><span>Validation clips kept identical check and overall verdicts</span></div><div><strong>&lt;5 ms</strong><span>Pass/fail rules; model inference remains the main cost</span></div></div>
       </section>
 
       <section class="case-section" aria-labelledby="ownership-title">
@@ -38,17 +47,17 @@
       </section>
 
       <section class="case-section" aria-labelledby="workbench-title">
-        <header class="case-section-heading"><div><p class="section-index">Synthetic demonstration</p><h2 id="workbench-title">A bad recording stops here</h2></div><p>Try the conditions below. This diagram uses a synthetic subject and shows the public quality-control concept, with no participant footage or research data.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Synthetic demonstration</p><h2 id="workbench-title">A bad recording stops here</h2></div><p>Try the real QC categories below. This public diagram uses a synthetic subject and contains no participant footage or research data.</p></header>
         <div class="gait-workbench">
           <div>
             <div class="qc-stage" id="qcStage" data-condition="usable" aria-label="Synthetic walking-video quality-control demonstration">
-              <span class="synthetic-tag">Synthetic input</span><div class="walk-zone" aria-hidden="true"></div><div class="synthetic-person" aria-hidden="true"><i class="head"></i><i class="torso"></i><i class="arm left"></i><i class="arm right"></i><i class="leg left"></i><i class="leg right"></i></div><div class="occluder" aria-hidden="true"></div>
+              <span class="synthetic-tag">Synthetic input</span><div class="walk-zone" aria-hidden="true"></div><div class="synthetic-person" aria-hidden="true"><i class="head"></i><i class="torso"></i><i class="arm left"></i><i class="arm right"></i><i class="leg left"></i><i class="leg right"></i></div><div class="second-person" aria-hidden="true"></div><div class="occluder" aria-hidden="true"></div>
             </div>
             <div class="qc-options" aria-label="Recording condition">
-              <button type="button" data-condition="usable" aria-pressed="true">Usable</button><button type="button" data-condition="offcenter" aria-pressed="false">Off center</button><button type="button" data-condition="dark" aria-pressed="false">Low light</button><button type="button" data-condition="occluded" aria-pressed="false">Occluded</button>
+              <button type="button" data-condition="usable" aria-pressed="true">Usable recording</button><button type="button" data-condition="blur" aria-pressed="false">Lighting / focus</button><button type="button" data-condition="people" aria-pressed="false">Person count</button><button type="button" data-condition="occluded" aria-pressed="false">Occlusion</button><button type="button" data-condition="frame" aria-pressed="false">Joints in frame</button><button type="button" data-condition="path" aria-pressed="false">Walking path</button>
             </div>
           </div>
-          <aside class="qc-panel" aria-live="polite"><p class="section-index">QC result</p><h3 id="qcTitle">Recording can proceed</h3><div class="qc-results"><div><span>Subject visible</span><strong id="visibilityResult">Pass</strong></div><div><span>Walking position</span><strong id="positionResult">Pass</strong></div><div><span>Lighting</span><strong id="lightingResult">Pass</strong></div></div><p class="qc-decision" id="qcDecision">Send to pose estimation and gait analysis.</p></aside>
+          <aside class="qc-panel" aria-live="polite"><p class="section-index">QC result</p><h3 id="qcTitle">Recording can proceed</h3><div class="qc-results"><div><span>Lighting / focus</span><strong id="focusResult">Pass</strong></div><div><span>Exactly 1 person</span><strong id="peopleResult">Pass</strong></div><div><span>Key joints visible</span><strong id="jointsResult">Pass</strong></div><div><span>Straight walking path</span><strong id="pathResult">Pass</strong></div></div><p class="qc-decision" id="qcDecision">Send to pose estimation and gait analysis.</p></aside>
         </div>
       </section>
 
@@ -59,17 +68,19 @@
     <footer class="site-footer"><span>Roger Tawfik · Research case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../resume.pdf" download>Résumé</a></span></footer>
     <script>
       const results = {
-        usable: { title: 'Recording can proceed', visibility: 'Pass', position: 'Pass', lighting: 'Pass', decision: 'Send to pose estimation and gait analysis.' },
-        offcenter: { title: 'Retake recommended', visibility: 'Pass', position: 'Fail', lighting: 'Pass', decision: 'Reposition the camera before analysis.' },
-        dark: { title: 'Retake required', visibility: 'Fail', position: 'Pass', lighting: 'Fail', decision: 'Increase lighting and record again.' },
-        occluded: { title: 'Retake required', visibility: 'Fail', position: 'Pass', lighting: 'Pass', decision: 'Clear the walking path before recording.' }
+        usable: { title: 'Recording can proceed', focus: 'Pass', people: 'Pass', joints: 'Pass', path: 'Pass', decision: 'Send to pose estimation and gait analysis.' },
+        blur: { title: 'Retake required', focus: 'Fail', people: 'Pass', joints: 'Pass', path: 'Pass', decision: 'Improve focus before recording again.' },
+        people: { title: 'Retake required', focus: 'Pass', people: 'Fail', joints: 'Pass', path: 'Pass', decision: 'Record with exactly one person in view.' },
+        occluded: { title: 'Retake required', focus: 'Pass', people: 'Pass', joints: 'Fail', path: 'Pass', decision: 'Clear objects blocking the knees or ankles.' },
+        frame: { title: 'Retake required', focus: 'Pass', people: 'Pass', joints: 'Fail', path: 'Pass', decision: 'Keep the full body and key joints inside the frame.' },
+        path: { title: 'Retake required', focus: 'Pass', people: 'Pass', joints: 'Pass', path: 'Fail', decision: 'Walk a straight path toward or away from the camera.' }
       };
       const stage = document.getElementById('qcStage');
       const setResult = (id, value) => { const el = document.getElementById(id); el.textContent = value; el.classList.toggle('fail', value === 'Fail'); };
       document.querySelectorAll('.qc-options button').forEach((button) => button.addEventListener('click', () => {
         document.querySelectorAll('.qc-options button').forEach((item) => item.setAttribute('aria-pressed', 'false'));
         button.setAttribute('aria-pressed', 'true'); stage.dataset.condition = button.dataset.condition;
-        const result = results[button.dataset.condition]; document.getElementById('qcTitle').textContent = result.title; setResult('visibilityResult', result.visibility); setResult('positionResult', result.position); setResult('lightingResult', result.lighting); document.getElementById('qcDecision').textContent = result.decision;
+        const result = results[button.dataset.condition]; document.getElementById('qcTitle').textContent = result.title; setResult('focusResult', result.focus); setResult('peopleResult', result.people); setResult('jointsResult', result.joints); setResult('pathResult', result.path); document.getElementById('qcDecision').textContent = result.decision;
       }));
     </script>
   </body>

@@ -23,7 +23,7 @@
           <div><dt>Role</dt><dd>Independent developer</dd></div>
           <div><dt>Problem</dt><dd>Exercise feedback needs to arrive during the repetition</dd></div>
           <div><dt>My contribution</dt><dd>Vision pipeline, form rules, rep state, HUD, C firmware, and serial feedback</dd></div>
-          <div><dt>State</dt><dd>Completed historical prototype</dd></div>
+          <div><dt>State</dt><dd>Completed prototype; school-owned hardware kit returned</dd></div>
         </dl>
       </section>
 
@@ -36,7 +36,11 @@
       </section>
 
       <section class="case-section" aria-labelledby="hardware-title">
-        <header class="case-section-heading"><div><p class="section-index">Implemented system</p><h2 id="hardware-title">The feedback loop reaches hardware</h2></div><p>The Arduino extension closed the loop between computer vision and a physical response. The February video above does not include this later work.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Implemented system</p><h2 id="hardware-title">The feedback loop reaches hardware</h2></div><p>The Arduino extension closed the loop between computer vision and a physical response. The school-owned kit has since been returned, and the original photo and demonstration remain private proof artifacts for now.</p></header>
+        <figure class="gym-system-visual">
+          <img src="../assets/gym-system-concept.png" width="1672" height="941" loading="lazy" alt="Conceptual visual of a camera tracking an exercise, pose and form analysis, live scoring, and Arduino feedback" />
+          <figcaption><strong>Conceptual system visual.</strong> This illustration is grounded in the implemented camera-to-Python-to-serial-to-Arduino workflow; it is not a photograph of a currently connected hardware setup.</figcaption>
+        </figure>
         <div class="hardware-loop" aria-label="Implemented Gym Form Trainer data flow"><div><span>Camera</span><strong>Full-body landmarks</strong></div><div><span>Python</span><strong>Joint-angle checks and rep state</strong></div><div><span>Serial</span><strong>Form feedback message</strong></div><div><span>Arduino</span><strong>LED and buzzer response</strong></div></div>
       </section>
 

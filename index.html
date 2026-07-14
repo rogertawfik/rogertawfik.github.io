@@ -48,44 +48,47 @@
           </div>
           <div>
             <dt>Building now</dt>
-            <dd>AI Nutrition Tracker App</dd>
-            <small>Deployed mobile-first PWA · Active development</small>
+            <dd class="current-work-list"><span>FAU Gait Research</span><span>AI Nutrition Tracker App</span></dd>
+            <small>Mobile Research implementation + independent product</small>
           </div>
         </dl>
       </section>
 
       <section class="work" id="work" aria-labelledby="work-title">
         <header class="section-heading">
-          <div><p class="section-index">Selected projects</p><h2 id="work-title">Systems I built.</h2></div>
+          <div><p class="section-index">Selected projects</p><h2 id="work-title">My Work</h2></div>
           <p>Research, shipped software, and technical prototypes. Each case study starts with what I built and the evidence behind it.</p>
         </header>
 
         <article class="project-stage stage-gait">
           <div class="stage-copy">
-            <p class="project-type">NSF REU research · 2026</p>
+            <p class="project-type">NSF REU Research · 2026</p>
             <h3>Clinical gait video analysis</h3>
+            <a class="research-credit" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/" aria-label="View the official Florida Atlantic University research project page">
+              <img src="assets/fau-logo.png" width="60" height="48" alt="" />
+              <span>Official FAU Research Project<strong>Under Dr. Behnaz Ghoraani</strong></span>
+            </a>
             <p class="project-summary">A quality-control pipeline that checks walking recordings before pose estimation and gait-metric computation.</p>
-            <dl class="project-proof"><div><dt>My role</dt><dd>Undergraduate researcher</dd></div><div><dt>Built</dt><dd>Quality gates, person/pose checks, reporting handoff</dd></div></dl>
+            <dl class="project-proof"><div><dt>My role</dt><dd>Undergraduate Researcher</dd></div><div><dt>Built</dt><dd>Quality gates, person/pose checks, reporting handoff</dd></div></dl>
             <a class="stage-action" href="projects/gait-analysis.html">Open research case study <span aria-hidden="true">→</span></a>
           </div>
           <div class="stage-media gait-media">
             <video id="gaitPreview" autoplay muted loop playsinline preload="metadata" poster="assets/gait-qc-loop-poster.png" aria-label="Animated overview of gait-video quality control">
               <source src="assets/gait-qc-loop.mp4" type="video/mp4" />
             </video>
-            <button class="media-toggle" type="button" data-video="gaitPreview" aria-pressed="false">Pause motion</button>
           </div>
         </article>
 
         <article class="project-stage stage-nutrition">
           <div class="nutrition-visual" aria-label="Current AI Nutrition Tracker App">
             <div class="phone-shell"><img src="assets/nutrition-current-home.png" width="430" height="1129" loading="lazy" alt="AI Nutrition Tracker App dashboard after logging a meal" /></div>
-            <div class="nutrition-note"><span>Live product</span><strong>Text, photo, or barcode</strong><small>Review parsed nutrition before saving</small></div>
+            <div class="nutrition-note"><span>Current work</span><strong>Detailed tracking + faster text or photo entry</strong><small>One nutrition record, with a lower-friction way to add meals</small></div>
           </div>
           <div class="stage-copy">
             <p class="project-type">Full-stack application · Active development</p>
             <h3>AI Nutrition Tracker App</h3>
-            <p class="project-summary">A mobile-first PWA for food logging, editable nutrition review, daily analysis, and weight tracking.</p>
-            <dl class="project-proof"><div><dt>My role</dt><dd>Independent developer</dd></div><div><dt>Built with</dt><dd>React, TypeScript, Supabase, Gemini</dd></div></dl>
+            <p class="project-summary">A mobile-first nutrition app combining traditional tracking with quicker meal entry through text or photos.</p>
+            <dl class="project-proof"><div><dt>My role</dt><dd>Independent developer</dd></div><div><dt>Built with</dt><dd>React, TypeScript, Supabase</dd></div></dl>
             <div class="stage-actions"><a class="stage-action" href="projects/nutrition-tracker.html">Open product case study <span aria-hidden="true">→</span></a><a class="stage-action secondary" href="https://calorie-tracker-app-azure.vercel.app/">Use live app</a></div>
           </div>
         </article>
@@ -129,15 +132,17 @@
 
     <footer class="site-footer"><span>Roger Tawfik · Natick, Massachusetts</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="https://github.com/rogertawfik">GitHub</a> · <a href="https://linkedin.com/in/rogertawfik">LinkedIn</a></span></footer>
     <script>
+      const gaitPreview = document.getElementById('gaitPreview');
       const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
-      document.querySelectorAll('.media-toggle').forEach((button) => {
-        const video = document.getElementById(button.dataset.video);
-        const syncState = () => { button.textContent = video.paused ? 'Play motion' : 'Pause motion'; button.setAttribute('aria-pressed', String(video.paused)); };
-        video.addEventListener('play', syncState); video.addEventListener('pause', syncState); video.addEventListener('loadeddata', syncState);
-        if (reduceMotion.matches) { video.removeAttribute('autoplay'); video.pause(); }
-        button.addEventListener('click', async () => { if (video.paused) { try { await video.play(); } catch { video.pause(); } } else { video.pause(); } syncState(); });
-        syncState();
-      });
+      if (reduceMotion.matches) {
+        gaitPreview.removeAttribute('autoplay');
+        gaitPreview.pause();
+      } else {
+        new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) gaitPreview.play().catch(() => gaitPreview.pause());
+          else gaitPreview.pause();
+        }, { threshold: 0.35 }).observe(gaitPreview);
+      }
     </script>
   </body>
 </html>
