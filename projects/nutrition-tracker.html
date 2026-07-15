@@ -2,13 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="AI Nutrition Tracker App built by Roger Tawfik with React, TypeScript, and Supabase." />
     <title>AI Nutrition Tracker App | Roger Tawfik</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles.css?v=20260714b" />
   </head>
   <body class="portfolio project-page nutrition-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -18,19 +15,22 @@
         <a class="back" href="../index.html#work">← Back to selected projects</a>
         <p class="case-kicker">Full-stack application · July 2026 to present</p>
         <h1>AI Nutrition Tracker App</h1>
-        <p class="case-intro">I am building a mobile-first nutrition app that combines traditional detailed tracking with a lower-friction option: describe a meal in text or use a photo, then review the result before saving.</p>
+        <p class="case-intro">I am building a mobile-first nutrition app that combines traditional tracking with LLM meal entry: describe a meal in text or use a photo, then review the result before saving.</p>
         <div class="case-actions"><a class="stage-action" href="https://calorie-tracker-app-azure.vercel.app/">Open live application →</a></div>
         <dl class="case-facts">
           <div><dt>Role</dt><dd>Independent developer</dd></div>
-          <div><dt>Problem</dt><dd>Detailed food logging takes too much manual entry</dd></div>
+          <div><dt>Problem</dt><dd>Traditional food logging takes too much manual entry</dd></div>
           <div><dt>My contribution</dt><dd>Mobile product, Supabase backend, editable meal records, analysis, and tracking workflows</dd></div>
-          <div><dt>State</dt><dd>Active development; faster text and photo entry in progress</dd></div>
+          <div><dt>State</dt><dd>Active development; LLM meal entry in progress</dd></div>
         </dl>
       </section>
 
+      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#screens-title">Product screens</a><a href="#flow-title">Logging workflow</a></nav>
+
       <section class="case-section" aria-labelledby="screens-title">
-        <header class="case-section-heading"><div><p class="section-index">Current product</p><h2 id="screens-title">The tracking foundation</h2></div><p>The current interface covers meal entry, editable nutrition review, daily totals, nutrition analysis, and weight tracking. The visual system is being redesigned as the product evolves.</p></header>
-        <div class="nutrition-screens">
+        <header class="case-section-heading"><div><p class="section-index">Current product</p><h2 id="screens-title">The tracking foundation</h2></div></header>
+        <p class="mobile-gallery-hint" id="nutrition-gallery-hint">Swipe or scroll to inspect each screen.</p>
+        <div class="nutrition-screens" tabindex="0" aria-describedby="nutrition-gallery-hint">
           <figure><img src="../assets/nutrition-current-home.png" width="430" height="1129" loading="lazy" alt="Nutrition Tracker dashboard after logging a sample meal" /><figcaption>Logged foods, daily totals, and a coaching insight</figcaption></figure>
           <figure><img src="../assets/nutrition-current-add.png" width="430" height="932" loading="lazy" alt="Natural-language, photo, and barcode food entry screen" /><figcaption>Text, photo, and barcode entry</figcaption></figure>
           <figure><img src="../assets/nutrition-current-review.png" width="430" height="1307" loading="lazy" alt="Editable nutrition review screen before logging" /><figcaption>Review and correct parsed foods</figcaption></figure>
@@ -39,11 +39,11 @@
       </section>
 
       <section class="case-section" aria-labelledby="flow-title">
-        <header class="case-section-heading"><div><p class="section-index">Product direction</p><h2 id="flow-title">Two ways to log, one daily record</h2></div><p>Users can keep the control of traditional tracking or choose a quicker text or photo path. Both routes end with an editable review before the meal reaches the day.</p></header>
-        <div class="product-flow" aria-label="Nutrition entry workflow"><div><b>Detailed</b><span>Traditional entry</span><small>Add and edit nutrition fields directly.</small></div><div><b>Fast</b><span>Text or photo</span><small>Describe the meal with less manual entry.</small></div><div><b>Review</b><span>Confirm the result</span><small>Correct foods and values before saving.</small></div><div><b>Track</b><span>One daily record</span><small>Calories, macros, nutrients, and trends.</small></div></div>
+        <header class="case-section-heading"><div><p class="section-index">Product direction</p><h2 id="flow-title">Two ways to log, one daily record</h2></div></header>
+        <div class="product-flow" aria-label="Nutrition entry workflow"><div><b>Detailed</b><span>Traditional tracking</span><small>Add and edit nutrition fields directly.</small></div><div><b>Faster</b><span>LLM meal entry</span><small>Use text or a photo with less manual entry.</small></div><div><b>Review</b><span>Confirm the result</span><small>Correct foods and values before saving.</small></div><div><b>Track</b><span>One daily record</span><small>Calories, macros, nutrients, and trends.</small></div></div>
       </section>
 
-      <nav class="project-nav" aria-label="Project navigation"><a href="gait-analysis.html"><span>Previous project</span><strong>← Clinical gait video analysis</strong></a><a href="gym-form-trainer.html"><span>Next project</span><strong>Gym Form Trainer →</strong></a></nav>
+      <nav class="project-nav" aria-label="Project navigation"><a href="gait-analysis.html"><span>Previous project</span><strong>← Clinical Gait Video Analysis</strong></a><a href="gym-form-trainer.html"><span>Next project</span><strong>Gym Form Trainer →</strong></a></nav>
     </main>
     <footer class="site-footer"><span>Roger Tawfik · Product case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../resume.pdf" download>Résumé</a></span></footer>
   </body>

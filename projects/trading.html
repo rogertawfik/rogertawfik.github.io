@@ -2,13 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Algorithmic Trading Analysis System built by Roger Tawfik with Python, SQLite, Pine Script, and LightGBM." />
     <title>Trading Analysis System | Roger Tawfik</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles.css?v=20260714b" />
   </head>
   <body class="portfolio project-page trading-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -27,18 +24,20 @@
         </dl>
       </section>
 
+      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#proof-title">Scale</a><a href="#pipeline-title">Pipeline</a><a href="#artifacts-title">Artifacts</a></nav>
+
       <section class="case-section" aria-labelledby="proof-title">
-        <header class="case-section-heading"><div><p class="section-index">System scale</p><h2 id="proof-title">Built to preserve every outcome</h2></div><p>The dataset keeps failed setups, neutral outcomes, and trades that never triggered alongside the winners.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">System scale</p><h2 id="proof-title">Built to preserve every outcome</h2></div></header>
         <div class="trading-proof" aria-label="Trading system evidence"><div><strong>5,000+</strong><span>stocks screened</span></div><div><strong>150,000+</strong><span>labeled observations</span></div><div><strong>LightGBM</strong><span>calibrated scoring</span></div></div>
       </section>
 
       <section class="case-section" aria-labelledby="pipeline-title">
-        <header class="case-section-heading"><div><p class="section-index">Ordered system flow</p><h2 id="pipeline-title">From signal to stored outcome</h2></div><p>Each stage preserves what was known at the signal date before the result enters the model dataset.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Ordered system flow</p><h2 id="pipeline-title">From signal to stored outcome</h2></div></header>
         <div class="pipeline"><div><span>01</span><strong>Daily market data</strong></div><div><span>02</span><strong>Technical features</strong></div><div><span>03</span><strong>SQLite snapshot</strong></div><div><span>04</span><strong>Forward outcome</strong></div><div><span>05</span><strong>Score calibration</strong></div></div>
       </section>
 
       <section class="case-section" aria-labelledby="artifacts-title">
-        <header class="case-section-heading"><div><p class="section-index">Stored backtest artifacts</p><h2 id="artifacts-title">A winner beside a failure</h2></div><p>Keeping both examples makes the scoring logic testable and shows where a breakout signal succeeds or breaks down.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Stored backtest artifacts</p><h2 id="artifacts-title">A winner beside a failure</h2></div></header>
         <div class="artifact-grid"><figure><img src="../assets/trading-winner.png" width="1919" height="1166" loading="lazy" alt="ASTS backtest chart labeled big winner" /><figcaption>ASTS was stored as a big-winner outcome. The dashed line marks the signal date and the shaded region shows the forward window.</figcaption></figure><figure><img src="../assets/trading-false-breakout.png" width="1922" height="1166" loading="lazy" alt="WULF backtest chart labeled false breakout" /><figcaption>WULF was stored as a false breakout after the stop condition occurred during the forward window.</figcaption></figure></div>
         <div class="artifact-notes"><div><h3>Why both examples matter</h3><p>Successful setups alone would distort the scoring logic. The stored labels keep winners, failed setups, neutral outcomes, and setups that never triggered.</p></div><div><h3>What the system tests</h3><p>Historical testing depends on preserving the information available at the signal date. Data boundaries and failed examples matter as much as model choice.</p></div></div>
       </section>

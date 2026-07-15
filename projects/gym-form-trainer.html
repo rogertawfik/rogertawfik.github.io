@@ -2,13 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Gym Form Trainer computer vision and Arduino project by Roger Tawfik." />
     <title>Gym Form Trainer | Roger Tawfik</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles.css?v=20260714b" />
   </head>
   <body class="portfolio project-page gym-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -27,8 +24,10 @@
         </dl>
       </section>
 
+      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#prototype-title">Prototype</a><a href="#hardware-title">Hardware loop</a></nav>
+
       <section class="case-section" aria-labelledby="prototype-title">
-        <header class="case-section-heading"><div><p class="section-index">Working evidence</p><h2 id="prototype-title">3 exercise modes</h2></div><p>These frames come from the February 2026 demonstration. The recording predates the later Arduino feedback extension.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Working evidence</p><h2 id="prototype-title">3 exercise modes</h2></div></header>
         <div class="gym-demo">
           <div><div class="real-exercise-stage"><img id="exerciseFrame" src="../assets/gym-squat.jpg" width="960" height="540" alt="Gym Form Trainer squat mode" /></div><div class="exercise-options" aria-label="Exercise mode"><button type="button" data-exercise="squat" aria-pressed="true">Squat</button><button type="button" data-exercise="curl" aria-pressed="false">Bicep curl</button><button type="button" data-exercise="pushup" aria-pressed="false">Push-up</button></div></div>
           <aside class="exercise-proof" aria-live="polite"><p class="section-index">Selected frame</p><h3 id="exerciseName">Squat</h3><div><b id="repStage">Bottom stage</b><span id="exerciseFeedback">Pose landmarks, form score, and repetition state appear in the live HUD.</span></div><div><b>Prototype loop</b><span>Track landmarks, check joint angles, update the rep state, then send feedback.</span></div><div><b>Physical extension</b><span>Later Arduino firmware added LED and buzzer feedback through serial communication.</span></div></aside>
@@ -36,17 +35,13 @@
       </section>
 
       <section class="case-section" aria-labelledby="hardware-title">
-        <header class="case-section-heading"><div><p class="section-index">Implemented system</p><h2 id="hardware-title">The feedback loop reaches hardware</h2></div><p>The Arduino extension closed the loop between computer vision and a physical response. The school-owned kit has since been returned, and the original photo and demonstration remain private proof artifacts for now.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Implemented system</p><h2 id="hardware-title">The feedback loop reaches hardware</h2></div></header>
         <figure class="gym-system-visual">
-          <img src="../assets/gym-system-concept.png" width="1672" height="941" loading="lazy" alt="Conceptual visual of a camera tracking an exercise, pose and form analysis, live scoring, and Arduino feedback" />
+          <img src="../assets/gym-system-concept.webp" width="1672" height="941" loading="lazy" alt="Conceptual visual of a camera tracking an exercise, pose and form analysis, live scoring, and Arduino feedback" />
           <figcaption><strong>Conceptual system visual.</strong> This illustration is grounded in the implemented camera-to-Python-to-serial-to-Arduino workflow; it is not a photograph of a currently connected hardware setup.</figcaption>
         </figure>
         <div class="hardware-loop" aria-label="Implemented Gym Form Trainer data flow"><div><span>Camera</span><strong>Full-body landmarks</strong></div><div><span>Python</span><strong>Joint-angle checks and rep state</strong></div><div><span>Serial</span><strong>Form feedback message</strong></div><div><span>Arduino</span><strong>LED and buzzer response</strong></div></div>
-      </section>
-
-      <section class="case-section" aria-labelledby="concept-title">
-        <header class="case-section-heading"><div><p class="section-index">Planned revision</p><h2 id="concept-title">A future video-feedback workflow</h2></div><p>This work has not started. The storyboard documents the proposed interaction and keeps it separate from the completed prototype above.</p></header>
-        <div class="concept-board"><div><h3>Concept, not implemented</h3><p>A future revision could apply lessons from clinical video quality control and human-movement analysis to uploaded exercise recordings.</p></div><div class="concept-frames" aria-label="Proposed future workflow"><div><span>Concept 1</span><strong>Record or upload a set</strong></div><div><span>Concept 2</span><strong>Check video quality and movement</strong></div><div><span>Concept 3</span><strong>Return annotated form feedback</strong></div></div></div>
+        <div class="concept-note"><strong>Planned revision</strong><p>A future revision could apply video quality checks and movement analysis to uploaded exercise recordings. This work has not started.</p></div>
       </section>
 
       <nav class="project-nav" aria-label="Project navigation"><a href="nutrition-tracker.html"><span>Previous project</span><strong>← AI Nutrition Tracker App</strong></a><a href="trading.html"><span>Next project</span><strong>Trading Analysis System →</strong></a></nav>

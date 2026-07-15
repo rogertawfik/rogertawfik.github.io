@@ -2,13 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Clinical gait video quality-control research by Roger Tawfik." />
     <title>Clinical Gait Video Analysis | Roger Tawfik</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles.css?v=20260714b" />
   </head>
   <body class="portfolio project-page gait-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -17,27 +14,24 @@
       <section class="case-header">
         <a class="back" href="../index.html#work">← Back to selected projects</a>
         <p class="case-kicker">NSF REU Research · June to July 2026</p>
-        <h1>Clinical gait video analysis</h1>
+        <h1>Clinical Gait Video Analysis</h1>
         <p class="case-intro">I developed a quality-control pipeline that checks walking recordings before pose estimation and gait-metric computation. The system catches recording problems early, while a useful retake is still possible.</p>
         <a class="research-affiliation" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">
-          <img src="../assets/fau-logo.png" width="60" height="48" alt="" />
+          <img src="../assets/fau-logo.webp" width="60" height="48" alt="" />
           <span>Official FAU Project · I-SENSE NSF REU<strong>Research led by Dr. Behnaz Ghoraani ↗</strong></span>
         </a>
         <dl class="case-facts">
           <div><dt>Role</dt><dd>Undergraduate Researcher</dd></div>
           <div><dt>Problem</dt><dd>Unusable video can invalidate downstream measurements</dd></div>
           <div><dt>My contribution</dt><dd>Quality gates, person/pose cross-checks, analysis handoff, and dual-audience reporting</dd></div>
-          <div><dt>State</dt><dd>Android + iOS implementation underway; publication in preparation</dd></div>
+          <div><dt>State</dt><dd>Mobile implementation underway; publication in preparation</dd></div>
         </dl>
       </section>
 
-      <section class="case-section" aria-labelledby="performance-title">
-        <header class="case-section-heading"><div><p class="section-index">Measured result</p><h2 id="performance-title">Faster checks, identical decisions</h2></div><p>Batching the person-detection work cut repeated model overhead while preserving every validation verdict.</p></header>
-        <div class="benchmark-strip" aria-label="Gait quality-control performance results"><div><strong>~2×</strong><span>Full QC speedup, from about 40 seconds to 20</span></div><div><strong>18/18</strong><span>Validation clips kept identical check and overall verdicts</span></div><div><strong>&lt;5 ms</strong><span>Pass/fail rules; model inference remains the main cost</span></div></div>
-      </section>
+      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#ownership-title">My contribution</a><a href="#workbench-title">Demonstration</a></nav>
 
       <section class="case-section" aria-labelledby="ownership-title">
-        <header class="case-section-heading"><div><p class="section-index">What I built</p><h2 id="ownership-title">My part of the pipeline</h2></div><p>Public, high-level scope only. Participant recordings, clinical data, private code, and unpublished implementation details stay out of this portfolio.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">What I built</p><h2 id="ownership-title">My part of the pipeline</h2></div></header>
         <div class="ownership-map">
           <article><span>Quality gates</span><h3>Screen the recording</h3><p>Built a three-tier system for lighting, focus, subject visibility, and walking orientation.</p></article>
           <article><span>Person and pose</span><h3>Cross-check usability</h3><p>Combined YOLOv8 person tracking with MediaPipe pose estimation across frames.</p></article>
@@ -47,7 +41,7 @@
       </section>
 
       <section class="case-section" aria-labelledby="workbench-title">
-        <header class="case-section-heading"><div><p class="section-index">Synthetic demonstration</p><h2 id="workbench-title">A bad recording stops here</h2></div><p>Try the real QC categories below. This public diagram uses a synthetic subject and contains no participant footage or research data.</p></header>
+        <header class="case-section-heading"><div><p class="section-index">Synthetic demonstration</p><h2 id="workbench-title">A bad recording stops here</h2></div></header>
         <div class="gait-workbench">
           <div>
             <div class="qc-stage" id="qcStage" data-condition="usable" aria-label="Synthetic walking-video quality-control demonstration">
@@ -60,8 +54,6 @@
           <aside class="qc-panel" aria-live="polite"><p class="section-index">QC result</p><h3 id="qcTitle">Recording can proceed</h3><div class="qc-results"><div><span>Lighting / focus</span><strong id="focusResult">Pass</strong></div><div><span>Exactly 1 person</span><strong id="peopleResult">Pass</strong></div><div><span>Key joints visible</span><strong id="jointsResult">Pass</strong></div><div><span>Straight walking path</span><strong id="pathResult">Pass</strong></div></div><p class="qc-decision" id="qcDecision">Send to pose estimation and gait analysis.</p></aside>
         </div>
       </section>
-
-      <section class="case-section"><div class="privacy-note"><strong>Research privacy</strong><p>This case study is intentionally limited to the project goal, public system design, and my responsibilities. It contains no participant recordings or clinical data.</p></div></section>
 
       <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="nutrition-tracker.html"><span>Next project</span><strong>AI Nutrition Tracker App →</strong></a></nav>
     </main>
