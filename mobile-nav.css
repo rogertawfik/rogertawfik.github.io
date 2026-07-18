@@ -1,0 +1,50 @@
+.current-work-list a,
+.current-work-list span {
+  display: block;
+  width: fit-content;
+}
+
+.current-work-list a + a,
+.current-work-list span + span {
+  margin-top: var(--space-xxs);
+}
+
+@media (max-width: 680px) {
+  .site-header nav {
+    gap: clamp(.125rem, 1.5vw, var(--space-xs));
+  }
+
+  .site-header nav a {
+    min-width: 44px;
+    justify-content: center;
+    padding-inline: .125rem;
+  }
+
+  .site-header .nav-secondary {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    justify-content: center;
+  }
+
+  .site-header .wordmark {
+    display: none;
+  }
+
+  .site-header nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .site-header nav a {
+    flex: 1 1 20%;
+    justify-content: center;
+    padding-inline: .125rem;
+    font-size: clamp(.7rem, 3.4vw, .8rem);
+    letter-spacing: -.02em;
+  }
+}
