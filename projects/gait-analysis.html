@@ -7,73 +7,243 @@
     <title>Clinical Gait Video Analysis | Roger Tawfik</title>
     <link rel="stylesheet" href="../styles.css?v=20260717a" />
     <link rel="stylesheet" href="../mobile-nav.css?v=20260717a" />
+    <style>
+      /* Gait case study v2 — all new selectors are gva- prefixed to avoid collisions with
+         shared styles.css (which already defines an unrelated .pipeline, .occluder, .back, etc.
+         for other pages). .back, .site-header, .site-footer, .project-nav, .skip-link are the
+         real shared site components and are intentionally left unstyled here. */
+      .gva-hero { color: #eef0f4; background: #2e3955; margin-top: clamp(2rem, 7vw, 6rem); border-radius: 12px; overflow: hidden; }
+      .gva-hero-inner { display: grid; grid-template-columns: minmax(320px, .92fr) minmax(360px, 1.08fr); gap: clamp(28px, 5vw, 64px); align-items: center; padding: clamp(2rem, 5vw, 4rem); }
+      .gva-back { display: inline-block; margin-bottom: 24px; color: #aeb6c8; font-size: 13px; text-decoration: none; }
+      .gva-back:hover { color: #fff; }
+      .gva-eyebrow { margin: 0 0 14px; color: #d0555c; font: 600 12px/1.4 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .07em; text-transform: uppercase; }
+      .gva-hero-copy h1 { margin: 0; font-size: clamp(38px, 4.3vw, 56px); font-weight: 620; line-height: 1.02; letter-spacing: -.04em; }
+      .gva-thesis { max-width: 46ch; margin-top: 16px; color: #cfd4de; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.5; }
+      .gva-meta-line { margin-top: 14px; color: #99a2b8; font-size: 13px; }
+      .gva-affiliation { display: flex; width: fit-content; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid #3d4863; color: #aeb6c8; font-size: 12px; text-decoration: none; }
+      .gva-affiliation img { width: 42px; height: 34px; object-fit: contain; }
+      .gva-affiliation strong { display: block; color: #fff; font-weight: 560; }
+      .gva-evidence { position: relative; min-width: 0; }
+      .gva-evidence-frame { margin: 0; border-top: 2px solid #ac3138; background: #12162447; }
+      .gva-evidence-frame video { display: block; width: 100%; max-width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #dfe4ef; }
+      .gva-evidence-caption { margin-top: 12px; color: #aeb6c8; font-size: 13px; }
+
+      .gva-pipeline { padding: 56px 0 44px; border-bottom: 1px solid var(--line); }
+      .gva-rail-track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); }
+      .gva-rail-track::before { content: ""; position: absolute; left: 0; right: 0; top: 25px; height: 3px; background: linear-gradient(90deg, #2e3955, #ac3138 35%, #ac3138 65%, #2e3955); }
+      .gva-rail-node { position: relative; padding-right: 20px; }
+      .gva-rail-dot { position: relative; z-index: 1; display: flex; width: 52px; height: 52px; align-items: center; justify-content: center; border-radius: 50%; background: #2e3955; color: #fff; box-shadow: 0 3px 10px rgba(30,36,57,.28); }
+      .gva-rail-dot svg { width: 22px; height: 22px; }
+      .gva-rail-node.is-gate .gva-rail-dot { background: #ac3138; box-shadow: 0 3px 10px rgba(172,49,56,.3); }
+      .gva-rail-label { display: block; margin-top: 16px; color: var(--muted); font: 600 11px/1.3 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+      .gva-rail-node h3 { margin: 6px 0 0; font-size: 20px; font-weight: 660; line-height: 1.1; letter-spacing: -.02em; }
+      .gva-rail-node p { max-width: 26ch; margin: 8px 0 0; color: var(--body); font-size: 13.5px; line-height: 1.42; }
+
+      .gva-demo { padding: 48px 0 52px; border-bottom: 1px solid var(--line); }
+      .gva-demo-shell { display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(280px, .68fr); border: 1px solid var(--line-strong, #d8d8d8); }
+      .gva-synthetic-stage { position: relative; min-height: 380px; overflow: hidden; color: #eef0f4; background: #1e2439; }
+      .gva-synthetic-tag { position: absolute; z-index: 2; left: 14px; top: 12px; padding: 5px 9px; border: 1px solid #4a5471; color: #cfd4de; font: 600 10px/1.2 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+      .gva-frame-corners::before, .gva-frame-corners::after { content: ""; position: absolute; inset: 34px; pointer-events: none; }
+      .gva-frame-corners::before { border-left: 1px solid #4a5471; border-right: 1px solid #4a5471; }
+      .gva-frame-corners::after { border-top: 1px solid #4a5471; border-bottom: 1px solid #4a5471; }
+      .gva-walk-floor { position: absolute; left: 8%; right: 8%; bottom: 13%; height: 1px; background: #4a5471; transform: perspective(200px) rotateX(55deg); }
+      .gva-frame-guide-line { position: absolute; left: 8%; right: 8%; bottom: 15%; height: 0; border-top: 1px dashed rgba(238,240,244,.25); transition: border-color .2s; }
+      .gva-synthetic-stage[data-condition="frame"] .gva-frame-guide-line { border-top-color: #d0555c; }
+      .gva-path-line { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .2s; }
+      .gva-path-line svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .gva-synthetic-stage[data-condition="path"] .gva-path-line { opacity: 1; }
+      .gva-person { position: absolute; left: 49%; top: 40%; width: 7px; height: 100px; background: #dfe4ef; transform-origin: 50% 100%; transition: filter .25s, opacity .25s, left .25s, top .25s; }
+      .gva-person::before { content: ""; position: absolute; left: -9px; top: -19px; width: 22px; height: 22px; border: 3px solid #dfe4ef; border-radius: 50%; background: #1e2439; }
+      .gva-limb { position: absolute; width: 4px; height: 54px; background: #dfe4ef; transform-origin: 50% 0; }
+      .gva-arm-l { left: -2px; top: 12px; transform: rotate(25deg); } .gva-arm-r { left: 6px; top: 12px; transform: rotate(-29deg); }
+      .gva-leg-l { left: 0; top: 92px; transform: rotate(17deg); } .gva-leg-r { left: 4px; top: 92px; transform: rotate(-19deg); }
+      .gva-joint { position: absolute; z-index: 1; width: 7px; height: 7px; border: 2px solid #d0555c; border-radius: 50%; background: #1e2439; }
+      .gva-j1 { left: -2px; top: 38px; } .gva-j2 { left: -24px; top: 59px; } .gva-j3 { left: 22px; top: 60px; } .gva-j4 { left: -12px; top: 93px; } .gva-j5 { left: 11px; top: 93px; } .gva-j6 { left: -17px; top: 129px; } .gva-j7 { left: 15px; top: 129px; }
+      .gva-second-person, .gva-occluder { position: absolute; opacity: 0; transition: opacity .25s; }
+      .gva-second-person { right: 18%; top: 44%; width: 16px; height: 92px; border-radius: 9px 9px 2px 2px; background: #aab2c4; }
+      .gva-second-person::before { content: ""; position: absolute; left: 50%; top: -16px; width: 15px; height: 15px; margin-left: -7.5px; border-radius: 50%; background: #aab2c4; border: 2px solid #1e2439; }
+      .gva-occluder { left: 40%; right: 36%; bottom: 0; height: 46%; background: #37415c; border-top: 2px solid #4a5471; }
+      .gva-synthetic-stage[data-condition="blur"] .gva-person { filter: blur(7px); }
+      .gva-synthetic-stage[data-condition="people"] .gva-second-person { opacity: 1; }
+      .gva-synthetic-stage[data-condition="occluded"] .gva-occluder { opacity: 1; }
+      .gva-synthetic-stage[data-condition="frame"] .gva-person { top: 82%; }
+      .gva-synthetic-stage[data-condition="path"] .gva-person { left: 73%; transform: rotate(13deg); }
+      .gva-demo-panel { padding: 24px; border-left: 1px solid var(--line-strong, #d8d8d8); }
+      .gva-demo-panel h2 { margin: 0; font-size: 19px; font-weight: 610; letter-spacing: -.02em; }
+      .gva-demo-panel > p.gva-lede { max-width: 34ch; margin-top: 8px; color: var(--body); font-size: 13.5px; }
+      .gva-condition-buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+      .gva-condition-buttons button { min-height: 38px; padding: 0 11px; border: 1px solid var(--line-strong, #d8d8d8); color: var(--body); background: #fff; cursor: pointer; font: inherit; font-size: 12px; }
+      .gva-condition-buttons button[aria-pressed="true"] { border-color: #2e3955; color: #fff; background: #2e3955; }
+      .gva-demo-result { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line-strong, #d8d8d8); }
+      .gva-demo-result span { color: var(--muted); font: 600 10px/1.2 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+      .gva-demo-result h3 { margin: 8px 0 0; font-size: 21px; }
+      .gva-demo-result p { margin: 8px 0 0; color: var(--body); font-size: 13.5px; }
+      .gva-test-list { margin: 18px 0 0; padding: 0; list-style: none; }
+      .gva-test-list li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); color: var(--body); font-size: 12.5px; }
+      .gva-test-list strong { color: #2f7a4f; font: 600 11px/1.4 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; text-transform: uppercase; }
+      .gva-test-list strong.fail { color: #ac3138; }
+
+      .gva-native { padding: 48px 0 52px; border-bottom: 1px solid var(--line); }
+      .gva-native h2 { margin: 0; font-size: clamp(24px, 2.6vw, 30px); font-weight: 620; letter-spacing: -.02em; }
+      .gva-native > p { max-width: 62ch; margin: 10px 0 0; color: var(--body); font-size: 15px; }
+      .gva-runtime-table { width: 100%; margin-top: 28px; border-collapse: collapse; font-size: 14px; }
+      .gva-runtime-table th, .gva-runtime-table td { padding: 13px 16px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+      .gva-runtime-table thead th { color: #cfd4de; font: 600 11px/1.3 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; background: #2e3955; border-color: #3d4863; }
+      .gva-runtime-table thead th:first-child { color: transparent; }
+      .gva-runtime-table tbody th { width: 15ch; color: var(--body); font: 600 11px/1.3 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; background: var(--soft); border-left: 3px solid #ac3138; }
+      .gva-runtime-table tbody td:nth-child(3), .gva-runtime-table tbody td:nth-child(4) { background: rgba(172,49,56,.045); }
+      .gva-runtime-table tbody tr:hover td, .gva-runtime-table tbody tr:hover th { background: rgba(46,57,85,.07); }
+
+      @media (max-width: 900px) {
+        .gva-hero-inner { grid-template-columns: 1fr; padding-top: 32px; }
+        .gva-rail-track { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+        .gva-rail-track::before { display: none; }
+        .gva-demo-shell { grid-template-columns: 1fr; }
+        .gva-demo-panel { border-left: 0; border-top: 1px solid var(--line-strong, #d8d8d8); }
+        .gva-runtime-table { font-size: 13px; }
+        .gva-runtime-table th, .gva-runtime-table td { padding: 10px 10px; }
+      }
+      @media (max-width: 620px) {
+        .gva-hero-copy h1 { font-size: 36px; }
+        .gva-rail-track { grid-template-columns: 1fr; row-gap: 24px; }
+        .gva-runtime-table { display: block; overflow-x: auto; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .gva-person, .gva-frame-guide-line, .gva-path-line, .gva-second-person, .gva-occluder { transition-duration: .01ms !important; }
+      }
+    </style>
   </head>
   <body class="portfolio project-page gait-page">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../roger-tawfik-resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
     <main id="main">
-      <section class="case-header">
-        <a class="back" href="../index.html#work">← Back to selected projects</a>
-        <p class="case-kicker">NSF REU Research · June to July 2026</p>
-        <h1>Clinical Gait Video Analysis</h1>
-        <p class="case-intro">I developed a quality-control pipeline that checks walking recordings before pose estimation and gait-metric computation. The system catches recording problems early, while a useful retake is still possible.</p>
-        <a class="research-affiliation" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">
-          <img src="../assets/fau-logo.webp" width="60" height="48" alt="" />
-          <span>Official FAU Project · I-SENSE NSF REU<strong>Research led by Dr. Behnaz Ghoraani ↗</strong></span>
-        </a>
-        <dl class="case-facts">
-          <div><dt>Role</dt><dd>Undergraduate Researcher</dd></div>
-          <div><dt>Problem</dt><dd>Unusable video can invalidate downstream measurements</dd></div>
-          <div><dt>My contribution</dt><dd>Quality gates, person/pose cross-checks, analysis handoff, and dual-audience reporting</dd></div>
-          <div><dt>State</dt><dd>Mobile implementation underway; publication in preparation</dd></div>
-        </dl>
-      </section>
-
-      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#ownership-title">My contribution</a><a href="#workbench-title">Demonstration</a></nav>
-
-      <section class="case-section" aria-labelledby="ownership-title">
-        <header class="case-section-heading"><div><p class="section-index">What I built</p><h2 id="ownership-title">My part of the pipeline</h2></div></header>
-        <div class="ownership-map">
-          <article><span>Quality gates</span><h3>Screen the recording</h3><p>Built a three-tier system for lighting, focus, subject visibility, and walking orientation.</p></article>
-          <article><span>Person and pose</span><h3>Cross-check usability</h3><p>Combined YOLOv8 person tracking with MediaPipe pose estimation across frames.</p></article>
-          <article><span>Analysis handoff</span><h3>Extract joint data</h3><p>Developed the pipeline to support body-joint extraction and gait-metric computation.</p></article>
-          <article><span>Reporting</span><h3>Write for 2 audiences</h3><p>Integrated a local LLM for technical summaries and plain-language clinical guidance.</p></article>
-        </div>
-      </section>
-
-      <section class="case-section" aria-labelledby="workbench-title">
-        <header class="case-section-heading"><div><p class="section-index">Synthetic demonstration</p><h2 id="workbench-title">A bad recording stops here</h2></div></header>
-        <div class="gait-workbench">
-          <div>
-            <div class="qc-stage" id="qcStage" data-condition="usable" aria-label="Synthetic walking-video quality-control demonstration">
-              <span class="synthetic-tag">Synthetic input</span><div class="walk-zone" aria-hidden="true"></div><div class="synthetic-person" aria-hidden="true"><i class="head"></i><i class="torso"></i><i class="arm left"></i><i class="arm right"></i><i class="leg left"></i><i class="leg right"></i></div><div class="second-person" aria-hidden="true"></div><div class="occluder" aria-hidden="true"></div>
-            </div>
-            <div class="qc-options" aria-label="Recording condition">
-              <button type="button" data-condition="usable" aria-pressed="true">Usable recording</button><button type="button" data-condition="blur" aria-pressed="false">Lighting / focus</button><button type="button" data-condition="people" aria-pressed="false">Person count</button><button type="button" data-condition="occluded" aria-pressed="false">Occlusion</button><button type="button" data-condition="frame" aria-pressed="false">Joints in frame</button><button type="button" data-condition="path" aria-pressed="false">Walking path</button>
-            </div>
+      <section class="gva-hero" aria-labelledby="page-title">
+        <div class="gva-hero-inner">
+          <div class="gva-hero-copy">
+            <a class="gva-back" href="../index.html#work">&larr; Selected projects</a>
+            <p class="gva-eyebrow">Clinical gait video analysis &middot; NSF REU &middot; June&ndash;July 2026</p>
+            <h1 id="page-title">Check the recording before measuring the walk.</h1>
+            <p class="gva-thesis">I developed a fail-fast quality-control pipeline that catches unusable walking video while a useful retake is still possible.</p>
+            <p class="gva-meta-line">Undergraduate Researcher &middot; mobile implementation underway; publication in preparation</p>
+            <a class="gva-affiliation" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">
+              <img src="../assets/fau-logo.webp" width="60" height="48" alt="" />
+              <span>I-SENSE NSF REU &middot; Florida Atlantic University<strong>Advised by Dr. Behnaz Ghoraani &nearr;</strong></span>
+            </a>
           </div>
-          <aside class="qc-panel" aria-live="polite"><p class="section-index">QC result</p><h3 id="qcTitle">Recording can proceed</h3><div class="qc-results"><div><span>Lighting / focus</span><strong id="focusResult">Pass</strong></div><div><span>Exactly 1 person</span><strong id="peopleResult">Pass</strong></div><div><span>Key joints visible</span><strong id="jointsResult">Pass</strong></div><div><span>Straight walking path</span><strong id="pathResult">Pass</strong></div></div><p class="qc-decision" id="qcDecision">Send to pose estimation and gait analysis.</p></aside>
+          <div class="gva-evidence">
+            <figure class="gva-evidence-frame">
+              <video autoplay muted loop playsinline preload="metadata" poster="../assets/gait-qc-loop-poster.png" aria-label="Motion graphic showing walking video passing through quality control before analysis">
+                <source src="../assets/gait-qc-loop.mp4" type="video/mp4" />
+              </video>
+              <figcaption class="gva-evidence-caption">The recording is screened before pose estimation and gait-metric computation.</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
-      <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="nutrition-tracker.html"><span>Next project</span><strong>AI Nutrition Tracker App →</strong></a></nav>
+      <section class="gva-pipeline" aria-label="Decision path">
+        <div class="gva-rail-track">
+          <div class="gva-rail-node">
+            <span class="gva-rail-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="14" height="11" rx="1.4"/><path d="M17 10l4-2.4v9L17 14"/><circle cx="10" cy="12.5" r="2.6"/></svg></span>
+            <span class="gva-rail-label">Input</span>
+            <h3>Walking video</h3>
+            <p>A recording begins as input, not trusted measurement data.</p>
+          </div>
+          <div class="gva-rail-node is-gate">
+            <span class="gva-rail-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/></svg></span>
+            <span class="gva-rail-label">Gate 01</span>
+            <h3>Subject &amp; capture</h3>
+            <p>Lighting, focus, person count, occlusion, and framing.</p>
+          </div>
+          <div class="gva-rail-node is-gate">
+            <span class="gva-rail-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5.5" r="1.6"/><path d="M12 7v6M12 13l-4 5M12 13l4 5M8 10h8"/></svg></span>
+            <span class="gva-rail-label">Gate 02</span>
+            <h3>Pose &amp; path</h3>
+            <p>YOLOv8 person tracking cross-checked against MediaPipe pose.</p>
+          </div>
+          <div class="gva-rail-node">
+            <span class="gva-rail-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V10M10 19V5M16 19v-7M4 19h16"/></svg></span>
+            <span class="gva-rail-label">Handoff</span>
+            <h3>Measurement</h3>
+            <p>Accepted evidence proceeds to gait-metric computation, then splits into technical and clinical reports.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="gva-demo" aria-labelledby="demo-title">
+        <div class="gva-demo-shell">
+          <div class="gva-synthetic-stage" id="qcStage" data-condition="usable" aria-label="Synthetic walking-video quality-control demonstration">
+            <span class="gva-synthetic-tag">Synthetic input</span>
+            <div class="gva-frame-corners" aria-hidden="true"></div><div class="gva-walk-floor" aria-hidden="true"></div>
+            <div class="gva-frame-guide-line" aria-hidden="true"></div>
+            <div class="gva-path-line" aria-hidden="true">
+              <svg viewBox="0 0 300 200" preserveAspectRatio="none">
+                <line x1="150" y1="24" x2="150" y2="176" stroke="rgba(238,240,244,.4)" stroke-width="1.5" stroke-dasharray="5 5" />
+                <line x1="70" y1="172" x2="205" y2="55" stroke="#d0555c" stroke-width="3" />
+                <polygon points="205,55 190,60 199,70" fill="#d0555c" />
+              </svg>
+            </div>
+            <div class="gva-person" aria-hidden="true"><i class="gva-limb gva-arm-l"></i><i class="gva-limb gva-arm-r"></i><i class="gva-limb gva-leg-l"></i><i class="gva-limb gva-leg-r"></i><i class="gva-joint gva-j1"></i><i class="gva-joint gva-j2"></i><i class="gva-joint gva-j3"></i><i class="gva-joint gva-j4"></i><i class="gva-joint gva-j5"></i><i class="gva-joint gva-j6"></i><i class="gva-joint gva-j7"></i></div>
+            <div class="gva-second-person" aria-hidden="true"></div><div class="gva-occluder" aria-hidden="true"></div>
+          </div>
+          <div class="gva-demo-panel">
+            <h2 id="demo-title">A bad recording stops here.</h2>
+            <p class="gva-lede">Switch the synthetic condition. Each failure returns a specific retake instruction.</p>
+            <div class="gva-condition-buttons" role="group" aria-label="Recording condition">
+              <button type="button" data-condition="usable" aria-pressed="true">Usable</button>
+              <button type="button" data-condition="blur" aria-pressed="false">Focus</button>
+              <button type="button" data-condition="people" aria-pressed="false">Person count</button>
+              <button type="button" data-condition="occluded" aria-pressed="false">Occlusion</button>
+              <button type="button" data-condition="frame" aria-pressed="false">Framing</button>
+              <button type="button" data-condition="path" aria-pressed="false">Path</button>
+            </div>
+            <div class="gva-demo-result" aria-live="polite"><span>QC decision</span><h3 id="qcTitle">Recording can proceed</h3><p id="qcDecision">Send to pose estimation and gait analysis.</p></div>
+            <ul class="gva-test-list">
+              <li><span>Lighting / focus</span><strong id="focusResult">Pass</strong></li>
+              <li><span>Exactly 1 person</span><strong id="peopleResult">Pass</strong></li>
+              <li><span>Key joints visible</span><strong id="jointsResult">Pass</strong></li>
+              <li><span>Straight walking path</span><strong id="pathResult">Pass</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="gva-native" aria-labelledby="native-title">
+        <h2 id="native-title">Same pipeline, reimplemented natively.</h2>
+        <p>The Python pipeline is reimplemented natively in Kotlin and Swift, then checked against desktop reference clips.</p>
+        <table class="gva-runtime-table">
+          <thead>
+            <tr><th scope="col">Runtime</th><th scope="col">Desktop reference</th><th scope="col">Android</th><th scope="col">iOS</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Implementation</th><td>Python pipeline</td><td>Kotlin</td><td>Swift + SwiftUI</td></tr>
+            <tr><th scope="row">Inference path</th><td>Desktop reference</td><td>MediaPipe Tasks + TFLite</td><td>Core ML</td></tr>
+            <tr><th scope="row">Validation</th><td>Reference clips established</td><td>Run against desktop reference clips</td><td>Same verdicts as Android on desktop reference clips; platform-specific behavior documented</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="nutrition-tracker.html"><span>Next project</span><strong>AI Nutrition Tracker App &rarr;</strong></a></nav>
     </main>
-    <footer class="site-footer"><span>Roger Tawfik · Research case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../roger-tawfik-resume.pdf" download>Résumé</a></span></footer>
+    <footer class="site-footer"><span>Roger Tawfik &middot; Research case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> &middot; <a href="../roger-tawfik-resume.pdf" download>R&eacute;sum&eacute;</a></span></footer>
     <script>
-      const results = {
-        usable: { title: 'Recording can proceed', focus: 'Pass', people: 'Pass', joints: 'Pass', path: 'Pass', decision: 'Send to pose estimation and gait analysis.' },
-        blur: { title: 'Retake required', focus: 'Fail', people: 'Pass', joints: 'Pass', path: 'Pass', decision: 'Improve focus before recording again.' },
-        people: { title: 'Retake required', focus: 'Pass', people: 'Fail', joints: 'Pass', path: 'Pass', decision: 'Record with exactly one person in view.' },
-        occluded: { title: 'Retake required', focus: 'Pass', people: 'Pass', joints: 'Fail', path: 'Pass', decision: 'Clear objects blocking the knees or ankles.' },
-        frame: { title: 'Retake required', focus: 'Pass', people: 'Pass', joints: 'Fail', path: 'Pass', decision: 'Keep the full body and key joints inside the frame.' },
-        path: { title: 'Retake required', focus: 'Pass', people: 'Pass', joints: 'Pass', path: 'Fail', decision: 'Walk a straight path toward or away from the camera.' }
+      const conditions = {
+        usable: { title: 'Recording can proceed', decision: 'Send to pose estimation and gait analysis.', tests: ['Pass','Pass','Pass','Pass'] },
+        blur: { title: 'Retake required', decision: 'Improve focus before recording again.', tests: ['Fail','Pass','Pass','Pass'] },
+        people: { title: 'Retake required', decision: 'Record with exactly one person in view.', tests: ['Pass','Fail','Pass','Pass'] },
+        occluded: { title: 'Retake required', decision: 'Clear objects blocking the knees or ankles.', tests: ['Pass','Pass','Fail','Pass'] },
+        frame: { title: 'Retake required', decision: 'Keep the full body and key joints inside the frame.', tests: ['Pass','Pass','Fail','Pass'] },
+        path: { title: 'Retake required', decision: 'Walk a straight path toward or away from the camera.', tests: ['Pass','Pass','Pass','Fail'] }
       };
+      const resultIds = ['focusResult','peopleResult','jointsResult','pathResult'];
       const stage = document.getElementById('qcStage');
-      const setResult = (id, value) => { const el = document.getElementById(id); el.textContent = value; el.classList.toggle('fail', value === 'Fail'); };
-      document.querySelectorAll('.qc-options button').forEach((button) => button.addEventListener('click', () => {
-        document.querySelectorAll('.qc-options button').forEach((item) => item.setAttribute('aria-pressed', 'false'));
-        button.setAttribute('aria-pressed', 'true'); stage.dataset.condition = button.dataset.condition;
-        const result = results[button.dataset.condition]; document.getElementById('qcTitle').textContent = result.title; setResult('focusResult', result.focus); setResult('peopleResult', result.people); setResult('jointsResult', result.joints); setResult('pathResult', result.path); document.getElementById('qcDecision').textContent = result.decision;
+      document.querySelectorAll('.gva-condition-buttons button').forEach((button) => button.addEventListener('click', () => {
+        document.querySelectorAll('.gva-condition-buttons button').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        const data = conditions[button.dataset.condition];
+        stage.dataset.condition = button.dataset.condition;
+        document.getElementById('qcTitle').textContent = data.title;
+        document.getElementById('qcDecision').textContent = data.decision;
+        resultIds.forEach((id, i) => { const el = document.getElementById(id); el.textContent = data.tests[i]; el.classList.toggle('fail', data.tests[i] === 'Fail'); });
       }));
     </script>
   </body>

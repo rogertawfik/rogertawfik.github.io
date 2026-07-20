@@ -4,47 +4,562 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Algorithmic Trading Analysis System built by Roger Tawfik with Python, SQLite, Pine Script, and LightGBM." />
-    <title>Trading Analysis System | Roger Tawfik</title>
+    <title>Algorithmic Trading Analysis System | Roger Tawfik</title>
     <link rel="stylesheet" href="../styles.css?v=20260717a" />
     <link rel="stylesheet" href="../mobile-nav.css?v=20260717a" />
+    <style>
+      /*
+        Trading case study v2, replacing the plain text-list layout with the "Scale and Rigor"
+        direction chosen after three parallel direction studies (see projects/trading-design-demos/).
+        All new selectors are trd- prefixed to avoid collisions with unrelated existing rules in the
+        shared stylesheet (which already has its own .pipeline and .occluder used elsewhere). .back,
+        .site-header, .wordmark, .site-footer, .project-nav, .skip-link are the real shared site
+        components and are intentionally left unstyled here, per the lesson learned from the Gait
+        redesign (there is no .wrap utility class site-wide; main itself is the width-constrained
+        container, and colored panels are rounded cards matching the homepage's .project-stage).
+
+        Content notes:
+        - The corrected scale figures (4,622 stocks / 662,678 ticker-date observations / 466,768
+          unambiguous labeled examples after a trigger-aware filter) replace a stale "5,000+ stocks"
+          figure that was on this page and the homepage card before this revision.
+        - 4,622 is shown as a labeled source figure above the funnel neck rather than as the widest
+          tier of the funnel shape, since it is smaller than 662,678 and a literal funnel would imply
+          a false proportion. The funnel taper is reserved for the one real narrowing relationship:
+          662,678 observations down to 466,768 labeled examples.
+        - --trading-accent (#22c55e) is used functionally (the calibrated/valid side of the page).
+          Raw #22c55e measures roughly 2.3:1 against white, short of WCAG AA for text, so AA-sensitive
+          text/icons use a darkened same-hue variant (#15803d, ~5:1) while the raw token stays reserved
+          for backgrounds, washes, and borders. Outcome chips use functional color (Win green, Loss
+          red, Neutral gray) rather than a single palette, per direct instruction.
+        - The two real backtest images (ASTS winner, WULF false breakout) are shown side by side as
+          clickable "exhibits" rather than one large chart plus a toggle and a mostly empty verdict
+          panel; clicking or keyboard-activating either exhibit brings it forward and dims the other.
+      */
+      .trd-visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .trd-intro-row {
+        padding-top: clamp(var(--space-lg), 4vw, var(--space-2xl));
+      }
+
+      .trd-hero {
+        margin-top: var(--space-xl);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      .trd-hero-copy {
+        padding: clamp(2rem, 5vw, 4rem);
+      }
+
+      .trd-eyebrow {
+        margin: 0;
+        color: var(--link);
+        font: 400 0.75rem/1rem var(--font-mono);
+      }
+
+      .trd-hero-copy h1 {
+        max-width: 28ch;
+        margin-top: var(--space-sm);
+      }
+
+      .trd-lead {
+        max-width: 68ch;
+        margin: var(--space-lg) 0 0;
+        color: var(--body);
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+
+      .trd-meta {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: var(--space-xl) var(--space-3xl);
+        margin: var(--space-xl) 0 0;
+      }
+
+      .trd-meta dt {
+        margin: 0;
+        color: var(--link);
+        font: 400 0.75rem/1rem var(--font-mono);
+      }
+
+      .trd-meta dd {
+        margin: var(--space-xs) 0 0;
+        font-size: 0.9375rem;
+        font-weight: 500;
+      }
+
+      .trd-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        gap: var(--space-xl);
+        margin-top: clamp(var(--space-lg), 3.5vw, var(--space-2xl));
+      }
+
+      .trd-pipeline-panel {
+        margin-top: 0;
+      }
+
+      .trd-scale-panel {
+        padding: clamp(1.5rem, 3.5vw, 2.25rem) clamp(1.75rem, 4vw, 2.5rem);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(34, 197, 94, 0.05), rgba(34, 197, 94, 0.09));
+      }
+
+      .trd-funnel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .trd-funnel-source {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        text-align: center;
+      }
+
+      .trd-num {
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .trd-funnel-source .trd-num {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        color: var(--ink);
+      }
+
+      .trd-qual {
+        max-width: 34ch;
+        color: var(--body);
+        font-size: 0.8125rem;
+        line-height: 1.2rem;
+      }
+
+      .trd-funnel-connector {
+        width: 2px;
+        height: 22px;
+        background: var(--line-strong);
+      }
+
+      .trd-funnel-connector::after {
+        content: "";
+      }
+
+      .trd-funnel-shape {
+        width: 100%;
+      }
+
+      .trd-funnel-band {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+        padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 4vw, 2rem);
+        text-align: center;
+      }
+
+      .trd-funnel-top {
+        border: 1px solid var(--line);
+        border-radius: 10px 10px 0 0;
+        background: var(--paper);
+      }
+
+      .trd-funnel-top .trd-num {
+        font-size: clamp(2.25rem, 7vw, 3.25rem);
+        color: var(--ink);
+      }
+
+      .trd-funnel-taper {
+        position: relative;
+        height: 56px;
+        margin: -1px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        clip-path: polygon(6% 0, 94% 0, 32% 100%, 68% 100%);
+        background: linear-gradient(180deg, var(--soft-2), rgba(34, 197, 94, 0.16));
+      }
+
+      .trd-funnel-taper span {
+        color: var(--body);
+        font: 500 0.6875rem/1rem var(--font-mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .trd-funnel-bottom {
+        border: 1px solid rgba(21, 128, 61, 0.35);
+        border-radius: 0 0 10px 10px;
+        background: rgba(34, 197, 94, 0.14);
+        margin-top: -1px;
+      }
+
+      .trd-funnel-bottom .trd-num {
+        font-size: clamp(2.25rem, 7vw, 3.25rem);
+        color: #15803d;
+      }
+
+      .trd-funnel-bottom .trd-qual {
+        color: #15803d;
+      }
+
+      .trd-card {
+        margin-top: clamp(var(--space-lg), 3.5vw, var(--space-2xl));
+        padding: clamp(1.5rem, 3.5vw, 2.25rem) clamp(2rem, 5vw, 3rem);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+      }
+
+      .trd-pipeline {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-sm);
+      }
+
+      .trd-pipe-step {
+        min-width: 0;
+      }
+
+      .trd-pipe-marker {
+        display: inline-flex;
+        width: 16px;
+        height: 16px;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        background: var(--paper);
+      }
+
+      .trd-pipe-marker.trd-pipe-score {
+        border-color: #15803d;
+        background: #15803d;
+      }
+
+      .trd-pipe-step strong {
+        display: block;
+        margin: var(--space-sm) 0 0.3rem;
+        font-size: 1rem;
+      }
+
+      .trd-pipe-step p {
+        margin: 0;
+        color: var(--body);
+        font-size: 0.875rem;
+        line-height: 1.35rem;
+      }
+
+      .trd-outcome-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin: 0.4rem 0 0.5rem;
+        padding: 0;
+        list-style: none;
+      }
+
+      .trd-outcome-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.2rem 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--body);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        line-height: 1.1rem;
+      }
+
+      .trd-outcome-chip.win {
+        border-color: rgba(21, 128, 61, 0.4);
+        background: rgba(34, 197, 94, 0.14);
+        color: #15803d;
+      }
+
+      .trd-outcome-chip.loss {
+        border-color: rgba(185, 28, 28, 0.4);
+        background: rgba(239, 68, 68, 0.14);
+        color: #b91c1c;
+      }
+
+      .trd-outcome-chip.neutral {
+        border-color: var(--line-strong);
+        background: var(--soft-2);
+        color: var(--body);
+      }
+
+      .trd-pipe-line {
+        flex: none;
+        align-self: flex-start;
+        width: 2px;
+        height: 18px;
+        margin-left: 7px;
+        background: var(--line);
+      }
+
+      .trd-exhibits {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(var(--space-lg), 3vw, var(--space-xl));
+      }
+
+      .trd-exhibit {
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--soft);
+        cursor: pointer;
+        transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+      }
+
+      .trd-exhibit:hover {
+        border-color: var(--line-strong);
+      }
+
+      .trd-exhibit[data-active="true"] {
+        border-color: rgba(21, 128, 61, 0.4);
+        box-shadow: 0 0 0 1px rgba(21, 128, 61, 0.4);
+      }
+
+      .trd-exhibit[data-active="true"]:hover {
+        border-color: rgba(21, 128, 61, 0.4);
+      }
+
+      .trd-exhibit[data-active="false"] {
+        opacity: 0.6;
+      }
+
+      .trd-exhibit[data-active="false"]:hover {
+        opacity: 0.8;
+      }
+
+      .trd-exhibit:focus-visible {
+        outline: 2px solid var(--link);
+        outline-offset: 2px;
+      }
+
+      .trd-exhibit-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-sm);
+        padding: var(--space-md) var(--space-md) 0;
+      }
+
+      .trd-exhibit-id {
+        font: 400 0.72rem/1 var(--font-mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--body);
+      }
+
+      .trd-stamp {
+        font: 400 0.68rem/1 var(--font-mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.3em 0.6em;
+        border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        color: var(--body);
+      }
+
+      .trd-stamp.is-win {
+        border-color: rgba(21, 128, 61, 0.4);
+        color: #15803d;
+      }
+
+      .trd-exhibit img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: var(--space-sm);
+      }
+
+      .trd-exhibit figcaption {
+        padding: var(--space-md);
+        color: var(--body);
+        font-size: 0.8125rem;
+        line-height: 1.25rem;
+        border-top: 1px solid var(--line);
+      }
+
+      @media (max-width: 900px) {
+        .trd-split {
+          grid-template-columns: 1fr;
+        }
+
+        .trd-pipeline-panel {
+          margin-top: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .trd-meta {
+          grid-template-columns: 1fr;
+          gap: var(--space-md);
+        }
+
+        .trd-exhibits {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .trd-exhibit {
+          transition: none !important;
+        }
+      }
+    </style>
   </head>
   <body class="portfolio project-page trading-page">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../roger-tawfik-resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
     <main id="main">
-      <section class="case-header">
+      <div class="trd-intro-row">
         <a class="back" href="../index.html#work">← Back to selected projects</a>
-        <p class="case-kicker">Data + applied ML · February to April 2026</p>
-        <h1>Algorithmic Trading Analysis System</h1>
-        <p class="case-intro">I engineered a Python system that screens more than 5,000 stocks, stores each setup, checks the forward outcome, and calibrates a probabilistic trade-quality score.</p>
-        <dl class="case-facts">
-          <div><dt>Role</dt><dd>Independent developer</dd></div>
-          <div><dt>Problem</dt><dd>Manual chart review is slow and inconsistent</dd></div>
-          <div><dt>My contribution</dt><dd>Screening, labeled observations, SQLite caching, LightGBM calibration, and Pine Script backtesting</dd></div>
-          <div><dt>State</dt><dd>Completed analysis system</dd></div>
-        </dl>
+      </div>
+
+      <section class="trd-hero">
+        <div class="trd-hero-copy">
+          <p class="trd-eyebrow">Data + applied ML. Independent project, February to April 2026.</p>
+          <h1>Algorithmic Trading Analysis System</h1>
+          <p class="trd-lead">I built a Python system that screens the market, records every ticker-date setup it sees, and only keeps a labeled example when a strict, trigger-aware filter says the outcome is unambiguous. Scale was never the point. The filter is.</p>
+          <dl class="trd-meta">
+            <div><dt>Role</dt><dd>Independent developer</dd></div>
+            <div><dt>Stack</dt><dd>Python, Pine Script, SQLite, LightGBM</dd></div>
+            <div><dt>State</dt><dd>Completed analysis system</dd></div>
+          </dl>
+        </div>
       </section>
 
-      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#proof-title">Scale</a><a href="#pipeline-title">Pipeline</a><a href="#artifacts-title">Artifacts</a></nav>
+      <div class="trd-split">
+        <section class="trd-scale-panel">
+          <p class="trd-visually-hidden" id="trd-scale-h">System scale, from screened stocks to labeled examples</p>
+          <div class="trd-funnel" role="img" aria-labelledby="trd-scale-h" aria-describedby="trd-scale-desc">
+            <div class="trd-funnel-source">
+              <span class="trd-num">4,622</span>
+              <span class="trd-qual">stocks screened. The starting universe.</span>
+            </div>
+            <div class="trd-funnel-connector"></div>
+            <div class="trd-funnel-shape">
+              <div class="trd-funnel-band trd-funnel-top">
+                <span class="trd-num">662,678</span>
+                <span class="trd-qual">unique ticker-date observations recorded.</span>
+              </div>
+              <div class="trd-funnel-taper"><span>Trigger-aware filter</span></div>
+              <div class="trd-funnel-band trd-funnel-bottom">
+                <span class="trd-num">466,768</span>
+                <span class="trd-qual">unambiguous labeled examples. Roughly seven in ten observations survive.</span>
+              </div>
+            </div>
+          </div>
+          <p id="trd-scale-desc" class="trd-visually-hidden">Of 4,622 stocks screened, the system recorded 662,678 unique ticker-date observations. A trigger-aware filter narrowed that pool down to 466,768 unambiguous labeled examples.</p>
+        </section>
 
-      <section class="case-section" aria-labelledby="proof-title">
-        <header class="case-section-heading"><div><p class="section-index">System scale</p><h2 id="proof-title">Built to preserve every outcome</h2></div></header>
-        <div class="trading-proof" aria-label="Trading system evidence"><div><strong>5,000+</strong><span>stocks screened</span></div><div><strong>660,000+</strong><span>historical observations</span></div><div><strong>LightGBM</strong><span>calibrated scoring</span></div></div>
-      </section>
+        <section class="trd-card trd-pipeline-panel" aria-label="Signal to score pipeline">
+          <div class="trd-pipeline">
+            <div class="trd-pipe-step">
+              <span class="trd-pipe-marker" aria-hidden="true"></span>
+              <strong>Signal</strong>
+              <p>Multi-factor technical screening flags a breakout or setup candidate across the stock universe.</p>
+            </div>
+            <div class="trd-pipe-line" aria-hidden="true"></div>
+            <div class="trd-pipe-step">
+              <span class="trd-pipe-marker" aria-hidden="true"></span>
+              <strong>Outcome</strong>
+              <p>The forward result is labeled and cached in SQLite, every category kept, not just the wins:</p>
+              <ul class="trd-outcome-chips">
+                <li class="trd-outcome-chip win">Win</li>
+                <li class="trd-outcome-chip loss">Loss</li>
+                <li class="trd-outcome-chip neutral">Neutral</li>
+              </ul>
+            </div>
+            <div class="trd-pipe-line" aria-hidden="true"></div>
+            <div class="trd-pipe-step">
+              <span class="trd-pipe-marker trd-pipe-score" aria-hidden="true"></span>
+              <strong>Score</strong>
+              <p>LightGBM with time-ordered validation, SHAP analysis, and isotonic calibration turns the label into a probability, then Pine Script backtests it on TradingView.</p>
+            </div>
+          </div>
+        </section>
+      </div>
 
-      <section class="case-section" aria-labelledby="pipeline-title">
-        <header class="case-section-heading"><div><p class="section-index">Ordered system flow</p><h2 id="pipeline-title">From signal to stored outcome</h2></div></header>
-        <div class="pipeline"><div><span>01</span><strong>Daily market data</strong></div><div><span>02</span><strong>Technical features</strong></div><div><span>03</span><strong>SQLite snapshot</strong></div><div><span>04</span><strong>Forward outcome</strong></div><div><span>05</span><strong>Score calibration</strong></div></div>
-      </section>
-
-      <section class="case-section" aria-labelledby="artifacts-title">
-        <header class="case-section-heading"><div><p class="section-index">Stored backtest artifacts</p><h2 id="artifacts-title">A winner beside a failure</h2></div></header>
-        <div class="artifact-grid"><figure><img src="../assets/trading-winner.png" width="1919" height="1166" loading="lazy" alt="ASTS backtest chart labeled big winner" /><figcaption>ASTS was stored as a big-winner outcome. The dashed line marks the signal date and the shaded region shows the forward window.</figcaption></figure><figure><img src="../assets/trading-false-breakout.png" width="1922" height="1166" loading="lazy" alt="WULF backtest chart labeled false breakout" /><figcaption>WULF was stored as a false breakout after the stop condition occurred during the forward window.</figcaption></figure></div>
-        <div class="artifact-notes"><div><h3>Why both examples matter</h3><p>Successful setups alone would distort the scoring logic. The stored labels keep winners, failed setups, neutral outcomes, and setups that never triggered.</p></div><div><h3>What the system tests</h3><p>Historical testing depends on preserving the information available at the signal date. Data boundaries and failed examples matter as much as model choice.</p></div></div>
+      <section class="trd-card" aria-label="Stored evidence">
+        <div class="trd-exhibits">
+          <figure class="trd-exhibit" id="trd-exhibit-winner" data-active="true" role="button" tabindex="0" aria-pressed="true" aria-label="Bring the winner exhibit, ASTS, forward">
+            <div class="trd-exhibit-top">
+              <span class="trd-exhibit-id">Exhibit A</span>
+              <span class="trd-stamp is-win">Stored: winner</span>
+            </div>
+            <img src="../assets/trading-winner.png" width="1919" height="1166" loading="lazy" alt="ASTS backtest chart labeled big winner" />
+            <figcaption>ASTS was stored as a big-winner outcome. The dashed line marks the signal date and the shaded region shows the forward window.</figcaption>
+          </figure>
+          <figure class="trd-exhibit" id="trd-exhibit-false" data-active="false" role="button" tabindex="0" aria-pressed="false" aria-label="Bring the false breakout exhibit, WULF, forward">
+            <div class="trd-exhibit-top">
+              <span class="trd-exhibit-id">Exhibit B</span>
+              <span class="trd-stamp">Stored: false breakout</span>
+            </div>
+            <img src="../assets/trading-false-breakout.png" width="1922" height="1166" loading="lazy" alt="WULF backtest chart labeled false breakout" />
+            <figcaption>WULF was stored as a false breakout after the stop condition triggered during the forward window.</figcaption>
+          </figure>
+        </div>
       </section>
 
       <nav class="project-nav" aria-label="Project navigation"><a href="gym-form-trainer.html"><span>Previous project</span><strong>← Gym Form Trainer</strong></a><a href="../index.html#work"><span>Continue</span><strong>All selected projects →</strong></a></nav>
     </main>
     <footer class="site-footer"><span>Roger Tawfik · Technical case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../roger-tawfik-resume.pdf" download>Résumé</a></span></footer>
+    <script>
+      (function () {
+        var exhibits = {
+          winner: document.getElementById("trd-exhibit-winner"),
+          "false-breakout": document.getElementById("trd-exhibit-false"),
+        };
+
+        function setOutcome(key) {
+          if (!exhibits[key]) return;
+          Object.keys(exhibits).forEach(function (k) {
+            var active = k === key;
+            exhibits[k].setAttribute("data-active", String(active));
+            exhibits[k].setAttribute("aria-pressed", String(active));
+          });
+        }
+
+        Object.keys(exhibits).forEach(function (key) {
+          var el = exhibits[key];
+          el.addEventListener("click", function () {
+            setOutcome(key);
+          });
+          el.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              setOutcome(key);
+            }
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -7,6 +7,27 @@
     <title>Gym Form Trainer | Roger Tawfik</title>
     <link rel="stylesheet" href="../styles.css?v=20260717a" />
     <link rel="stylesheet" href="../mobile-nav.css?v=20260717a" />
+    <style>
+      .gym-live-visual { margin: 0; }
+      .gym-live-visual-row { position: relative; display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-lg, 1.5rem); align-items: start; }
+      .gym-cable-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
+      @media (max-width: 780px) {
+        .gym-cable-overlay { display: none; }
+      }
+      .gym-live-stage { position: relative; background: #0b0e12; border-radius: 12px; overflow: hidden; aspect-ratio: 880 / 720; }
+      #gymCanvas { display: block; width: 100%; height: 100%; cursor: grab; }
+      #gymCanvas:active { cursor: grabbing; }
+      .gym-live-hint { position: absolute; left: 16px; bottom: 12px; margin: 0; font-size: .75rem; color: rgba(255,255,255,.6); font-family: var(--font-mono, monospace); }
+      .gym-live-exercise-switch { position: absolute; top: 12px; left: 16px; z-index: 2; display: flex; gap: 6px; }
+      .gym-live-exercise-switch button { min-height: 32px; padding: 4px 12px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: rgba(255,255,255,.75); background: rgba(11,14,18,.55); backdrop-filter: blur(2px); font-size: .75rem; font-weight: 500; cursor: pointer; }
+      .gym-live-exercise-switch button[aria-pressed="true"] { color: #0b0e12; border-color: transparent; background: #fff; }
+      .gym-breadboard { width: 100%; height: auto; align-self: center; }
+      .gym-live-visual figcaption { margin-top: var(--space-md, 1rem); }
+      .gym-live-visual figcaption .credit { display: block; margin-top: .4em; opacity: .7; font-size: .85em; }
+      @media (max-width: 780px) {
+        .gym-live-visual-row { grid-template-columns: 1fr; }
+      }
+    </style>
   </head>
   <body class="portfolio project-page gym-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -37,9 +58,65 @@
 
       <section class="case-section" aria-labelledby="hardware-title">
         <header class="case-section-heading"><div><p class="section-index">Implemented system</p><h2 id="hardware-title">The feedback loop reaches hardware</h2></div></header>
-        <figure class="gym-system-visual">
-          <img src="../assets/gym-system-concept.webp" width="1672" height="941" loading="lazy" alt="Conceptual visual of a camera tracking an exercise, pose and form analysis, live scoring, and Arduino feedback" />
-          <figcaption><strong>Conceptual system visual.</strong> This illustration is grounded in the implemented camera-to-Python-to-serial-to-Arduino workflow; it is not a photograph of a currently connected hardware setup.</figcaption>
+        <figure class="gym-live-visual">
+          <div class="gym-live-visual-row">
+          <div class="gym-live-stage">
+            <div class="gym-live-exercise-switch" role="group" aria-label="Recreated exercise">
+              <button type="button" data-exercise="squat" aria-pressed="false">Squat</button>
+              <button type="button" data-exercise="curl" aria-pressed="false">Bicep curl</button>
+              <button type="button" data-exercise="pushup" aria-pressed="true">Push-up</button>
+            </div>
+            <canvas id="gymCanvas" aria-label="Interactive 3D recreation of a push-up rep with pose-tracking overlay"></canvas>
+            <p class="gym-live-hint">Drag to rotate &middot; scroll to zoom</p>
+          </div>
+          <svg class="gym-breadboard" viewBox="0 0 420 536" aria-hidden="true">
+            <defs>
+              <filter id="gymLedGlow" x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="5" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <pattern id="gymHoles" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="1.3" fill="rgba(40,35,25,.28)" /></pattern>
+              <radialGradient id="gymLedDome" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#fff" stop-opacity=".85" />
+                <stop offset="35%" stop-color="currentColor" stop-opacity=".9" />
+                <stop offset="100%" stop-color="currentColor" />
+              </radialGradient>
+            </defs>
+            <rect x="10" y="10" width="400" height="230" rx="10" fill="#e8e3d6" stroke="#c7c0aa" stroke-width="2" />
+            <rect x="10" y="10" width="400" height="230" rx="10" fill="url(#gymHoles)" />
+            <line x1="26" y1="26" x2="394" y2="26" stroke="#c0433a" stroke-width="2" opacity=".55" />
+            <line x1="26" y1="34" x2="394" y2="34" stroke="#3a5aa8" stroke-width="2" opacity=".55" />
+            <line x1="26" y1="216" x2="394" y2="216" stroke="#c0433a" stroke-width="2" opacity=".55" />
+            <line x1="26" y1="224" x2="394" y2="224" stroke="#3a5aa8" stroke-width="2" opacity=".55" />
+            <rect x="170" y="56" width="224" height="150" rx="5" fill="#0a1626" stroke="#1c3a5c" stroke-width="2" />
+            <text id="gymOledLine1" x="182" y="78" font-family="JetBrains Mono, monospace" font-size="10" fill="#dff1ff">Exercise: Push-up</text>
+            <text id="gymOledLine2" x="182" y="98" font-family="JetBrains Mono, monospace" font-size="10" fill="#dff1ff">Reps: 0</text>
+            <text id="gymOledLine3" x="182" y="118" font-family="JetBrains Mono, monospace" font-size="10" fill="#dff1ff">Score: 0</text>
+            <text id="gymOledLine4" x="182" y="138" font-family="JetBrains Mono, monospace" font-size="10" fill="#7fa3bd">Feedback:</text>
+            <rect x="66" y="88" width="6" height="20" fill="#c9822f" /><rect x="66" y="88" width="6" height="4" fill="#3a3a3a" />
+            <circle cx="90" cy="96" r="15" fill="url(#gymLedDome)" style="color:#ef4444" opacity=".35" />
+            <circle cx="90" cy="96" r="10" fill="#ef4444" opacity=".55" />
+            <rect x="126" y="88" width="6" height="20" fill="#c9822f" /><rect x="126" y="88" width="6" height="4" fill="#3a3a3a" />
+            <circle id="gymGreenDome" cx="150" cy="96" r="15" fill="url(#gymLedDome)" style="color:#2ecc71" opacity=".35" />
+            <circle id="gymGreenCore" cx="150" cy="96" r="10" fill="#2ecc71" opacity=".4" />
+            <circle cx="120" cy="180" r="24" fill="#171717" stroke="#3a3a3a" stroke-width="2" />
+            <circle cx="120" cy="180" r="16" fill="none" stroke="#3a3a3a" stroke-width="1.5" />
+            <circle cx="120" cy="180" r="9" fill="none" stroke="#3a3a3a" stroke-width="1.5" />
+            <circle cx="120" cy="180" r="3" fill="#3a3a3a" />
+            <path id="gymBuzzArc1" d="M 150 168 A 20 20 0 0 1 150 192" fill="none" stroke="#f4b400" stroke-width="3" stroke-linecap="round" opacity="0" />
+            <path id="gymBuzzArc2" d="M 158 158 A 34 34 0 0 1 158 202" fill="none" stroke="#f4b400" stroke-width="3" stroke-linecap="round" opacity="0" />
+            <path d="M 150 216 C 150 250, 170 250, 170 284" fill="none" stroke="#e05a2b" stroke-width="3" />
+            <path d="M 90 216 C 90 255, 230 255, 230 284" fill="none" stroke="#3a5aa8" stroke-width="3" />
+            <path d="M 300 138 C 300 260, 280 260, 280 284" fill="none" stroke="#4a4a4a" stroke-width="3" />
+            <image href="../assets/gym/arduino-real.webp" x="50" y="280" width="320" height="233" preserveAspectRatio="xMidYMid meet" />
+          </svg>
+          <svg class="gym-cable-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 57.2 55.6 C 63 52, 60 62, 65.2 65.2" fill="none" stroke="#2f5fd6" stroke-width="1.6" stroke-linecap="round" opacity=".9" />
+            <rect x="55.7" y="53.1" width="3" height="5" rx=".6" fill="#c9c9c9" stroke="#8a9096" stroke-width=".25" />
+            <rect x="63.7" y="62.7" width="3.4" height="5.4" rx=".5" fill="#d4d4d4" stroke="#7c8288" stroke-width=".3" />
+          </svg>
+          </div>
+          <figcaption><strong>Live 3D recreation, not a photo.</strong> A recorded rep drives the same score/rep/feedback protocol the Arduino firmware actually runs (see <code>main.py</code> &rarr; <code>main.c</code>); the red overlay marks the joints a real pose model would report. Drag to look from any angle. <span class="credit">Arduino Uno photo by oomlout, <a href="https://commons.wikimedia.org/wiki/File:Arduino_Uno_006.jpg" target="_blank" rel="noopener">CC BY-SA 2.0 via Wikimedia Commons</a>.</span></figcaption>
         </figure>
         <div class="hardware-loop" aria-label="Implemented Gym Form Trainer data flow"><div><span>Camera</span><strong>Full-body landmarks</strong></div><div><span>Python</span><strong>Joint-angle checks and rep state</strong></div><div><span>Serial</span><strong>Form feedback message</strong></div><div><span>Arduino</span><strong>LED and buzzer response</strong></div></div>
         <div class="concept-note"><strong>Planned revision</strong><p>A future revision could apply video quality checks and movement analysis to uploaded exercise recordings. This work has not started.</p></div>
@@ -57,6 +134,42 @@
       document.querySelectorAll('.exercise-options button').forEach((button) => button.addEventListener('click', () => {
         document.querySelectorAll('.exercise-options button').forEach((item) => item.setAttribute('aria-pressed', 'false')); button.setAttribute('aria-pressed', 'true');
         const exercise = exercises[button.dataset.exercise]; document.getElementById('exerciseName').textContent = exercise.name; document.getElementById('repStage').textContent = exercise.stage; document.getElementById('exerciseFeedback').textContent = exercise.feedback; const frame = document.getElementById('exerciseFrame'); frame.src = exercise.frame; frame.alt = exercise.alt;
+      }));
+    </script>
+    <script src="../assets/gym/gym-viewer.bundle.js"></script>
+    <script>
+      const gymHud = document.querySelector('.gym-breadboard');
+      const gymGreenDome = document.getElementById('gymGreenDome');
+      const gymGreenCore = document.getElementById('gymGreenCore');
+      const gymBuzzArc1 = document.getElementById('gymBuzzArc1');
+      const gymBuzzArc2 = document.getElementById('gymBuzzArc2');
+      const gymOledLine1 = document.getElementById('gymOledLine1');
+      const gymOledLine2 = document.getElementById('gymOledLine2');
+      const gymOledLine3 = document.getElementById('gymOledLine3');
+      const gymOledLine4 = document.getElementById('gymOledLine4');
+      gymHud.addEventListener('gymstate', (e) => {
+        const { scored, beep, oledLine1, oledLine2, oledLine3, oledLine4 } = e.detail;
+        gymGreenDome.setAttribute('opacity', scored ? '1' : '.35');
+        gymGreenDome.setAttribute('filter', scored ? 'url(#gymLedGlow)' : '');
+        gymGreenCore.setAttribute('opacity', scored ? '1' : '.4');
+        gymBuzzArc1.setAttribute('opacity', beep ? '.65' : '0');
+        gymBuzzArc2.setAttribute('opacity', beep ? '.45' : '0');
+        gymOledLine1.textContent = oledLine1;
+        gymOledLine2.textContent = oledLine2;
+        gymOledLine3.textContent = oledLine3;
+        gymOledLine4.textContent = oledLine4;
+        gymOledLine4.setAttribute('fill', scored ? '#7be0a0' : '#7fa3bd');
+      });
+      const gymCanvas = document.getElementById('gymCanvas');
+      const gymGlbUrls = { squat: '../assets/gym/squat.glb', curl: '../assets/gym/curl.glb', pushup: '../assets/gym/pushup.glb' };
+      const gymAriaLabels = { squat: 'Interactive 3D recreation of a squat rep with pose-tracking overlay', curl: 'Interactive 3D recreation of a bicep curl rep with pose-tracking overlay', pushup: 'Interactive 3D recreation of a push-up rep with pose-tracking overlay' };
+      const gymViewer = window.initGymViewer(gymCanvas, gymHud, 'pushup', gymGlbUrls.pushup);
+      document.querySelectorAll('.gym-live-exercise-switch button').forEach((button) => button.addEventListener('click', () => {
+        const key = button.dataset.exercise;
+        document.querySelectorAll('.gym-live-exercise-switch button').forEach((item) => item.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+        gymCanvas.setAttribute('aria-label', gymAriaLabels[key]);
+        gymViewer.switchExercise(key, gymGlbUrls[key]);
       }));
     </script>
   </body>
