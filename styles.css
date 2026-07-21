@@ -199,7 +199,7 @@ main,
 .case-kicker,
 .fact-label {
   margin: 0;
-  color: var(--link);
+  color: var(--muted);
   font: 400 .75rem/1rem var(--font-mono);
 }
 
@@ -281,7 +281,7 @@ main,
   min-height: 32px;
   align-items: center;
   gap: var(--space-sm);
-  color: var(--link);
+  color: var(--muted);
   font-size: .75rem;
   font-weight: 500;
   line-height: 1rem;
@@ -811,7 +811,7 @@ main,
 }
 
 .case-facts dt {
-  color: var(--link);
+  color: var(--muted);
   font: 400 .75rem/1rem var(--font-mono);
 }
 
@@ -927,7 +927,7 @@ main,
 
 .privacy-note strong,
 .concept-note strong {
-  color: var(--link);
+  color: var(--muted);
   font-size: .75rem;
 }
 

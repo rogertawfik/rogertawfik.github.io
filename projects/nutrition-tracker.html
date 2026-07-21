@@ -1,4 +1,9 @@
 <!doctype html>
+<!--
+  Paired Paths direction. All nut- prefixed selectors are scoped to avoid collisions with
+  shared styles.css. .skip-link, .site-header, .wordmark, .site-footer, .back, .project-nav
+  are the real shared site components and are intentionally left unstyled here.
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,45 +12,519 @@
     <title>AI Nutrition Tracker App | Roger Tawfik</title>
     <link rel="stylesheet" href="../styles.css?v=20260717a" />
     <link rel="stylesheet" href="../mobile-nav.css?v=20260717a" />
+    <style>
+      :root {
+        --nutrition-accent: #a8501f;
+        --nutrition-accent-soft: rgba(168, 80, 31, 0.1);
+        --nutrition-accent-on-dark: #e08a52;
+      }
+
+      .nut-main > * + * {
+        margin-top: clamp(var(--space-lg), 3.5vw, var(--space-2xl));
+      }
+
+      /* ---------- Hero ---------- */
+      .nut-hero {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: clamp(var(--space-lg), 4vw, var(--space-2xl));
+        align-items: start;
+        padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 4vw, 2.25rem);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+      }
+
+      .nut-eyebrow {
+        margin: 0;
+        color: var(--nutrition-accent);
+        font: 400 0.75rem/1rem var(--font-mono);
+      }
+
+      .nut-hero-intro h1 {
+        margin: var(--space-xs) 0 0;
+        max-width: 18ch;
+      }
+
+      .nut-thesis {
+        max-width: 62ch;
+        margin: var(--space-sm) 0 0;
+        color: var(--body);
+        font-size: 1rem;
+        line-height: 1.55;
+      }
+
+      .nut-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-xs);
+        margin-top: var(--space-md);
+        color: var(--nutrition-accent);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .nut-facts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md) var(--space-lg);
+      }
+
+      .nut-facts dt {
+        margin: 0;
+        color: var(--nutrition-accent);
+        font: 400 0.72rem/1rem var(--font-mono);
+      }
+
+      .nut-facts dd {
+        margin: var(--space-xxs) 0 0;
+        color: var(--ink);
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.3rem;
+      }
+
+      /* ---------- Split: screens beside paths ---------- */
+      .nut-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        gap: clamp(var(--space-lg), 3vw, var(--space-xl));
+      }
+
+      .nut-panel {
+        padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 3.5vw, 2rem);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+      }
+
+      .nut-panel h2 {
+        margin: 0 0 var(--space-md);
+        font-size: 1.25rem;
+      }
+
+      /* ---------- Screen switcher ---------- */
+      .nut-switcher {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: var(--space-md);
+        align-items: start;
+      }
+
+      .nut-tablist {
+        display: grid;
+        grid-auto-rows: min-content;
+        gap: var(--space-xs);
+      }
+
+      .nut-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1px;
+        padding: var(--space-sm) var(--space-md);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        color: var(--ink);
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .nut-tab strong {
+        font-size: 0.875rem;
+      }
+
+      .nut-tab span {
+        color: var(--muted);
+        font-size: 0.6875rem;
+      }
+
+      .nut-tab[aria-selected="true"] {
+        border-color: var(--nutrition-accent);
+        background: var(--nutrition-accent-soft);
+      }
+
+      .nut-tab[aria-selected="true"] span {
+        color: var(--nutrition-accent);
+      }
+
+      .nut-tab:focus-visible {
+        outline: 2px solid var(--nutrition-accent);
+        outline-offset: 2px;
+      }
+
+      .nut-frame-col {
+        display: grid;
+        justify-items: center;
+        gap: var(--space-sm);
+      }
+
+      .nut-frame {
+        width: min(100%, 220px);
+        overflow: hidden;
+        border: 8px solid var(--primary);
+        border-radius: 16px;
+        background: var(--paper);
+        box-shadow: 0 2px 2px rgb(0 0 0 / 10%), 0 8px 16px -4px rgb(0 0 0 / 10%);
+      }
+
+      .nut-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .nut-caption {
+        margin: 0;
+        max-width: 30ch;
+        color: var(--body);
+        font-size: 0.8125rem;
+        line-height: 1.35;
+        text-align: center;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .nut-frame img {
+          transition: opacity 0.15s var(--ease-out);
+        }
+      }
+
+      /* ---------- Paired paths ---------- */
+      .nut-paths {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-sm);
+      }
+
+      .nut-path {
+        padding: var(--space-md);
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--nutrition-accent);
+        border-radius: 10px;
+        background: var(--soft);
+      }
+
+      .nut-path p {
+        margin: var(--space-xs) 0 0;
+        color: var(--body);
+        font-size: 0.8125rem;
+        line-height: 1.4;
+      }
+
+      .nut-path-kind {
+        display: block;
+        color: var(--nutrition-accent);
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .nut-path h3 {
+        margin: 1px 0 0;
+        font-size: 0.9375rem;
+      }
+
+      .nut-converge {
+        display: block;
+        width: min(100%, 160px);
+        height: 26px;
+        margin: 0 auto;
+        color: var(--line-strong);
+      }
+
+      .nut-checkpoint {
+        padding: clamp(1.25rem, 3vw, 1.75rem);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--primary);
+        color: var(--on-primary);
+      }
+
+      .nut-checkpoint-label {
+        display: block;
+        color: var(--nutrition-accent-on-dark);
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .nut-checkpoint h3 {
+        margin: var(--space-xxs) 0 0;
+        color: var(--on-primary);
+        font-size: 1.0625rem;
+        max-width: 40ch;
+      }
+
+      .nut-checkpoint p {
+        margin: var(--space-sm) 0 0;
+        max-width: 60ch;
+        color: var(--soft-2);
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      .nut-checkpoint p em {
+        color: var(--on-primary);
+        font-style: normal;
+        font-weight: 500;
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 1080px) {
+        .nut-switcher {
+          grid-template-columns: 1fr;
+        }
+
+        .nut-tablist {
+          grid-auto-flow: column;
+          grid-auto-columns: minmax(100px, 1fr);
+          overflow-x: auto;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .nut-hero {
+          grid-template-columns: 1fr;
+        }
+
+        .nut-split {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .nut-paths {
+          grid-template-columns: 1fr;
+        }
+
+        .nut-facts {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
   </head>
   <body class="portfolio project-page nutrition-page">
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../roger-tawfik-resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
-    <main id="main">
-      <section class="case-header">
-        <a class="back" href="../index.html#work">← Back to selected projects</a>
-        <p class="case-kicker">Full-stack application · July 2026 to present</p>
-        <h1>AI Nutrition Tracker App</h1>
-        <p class="case-intro">I am building a mobile-first nutrition app that combines traditional tracking with LLM meal entry: describe a meal in text or use a photo, then review the result before saving.</p>
-        <div class="case-actions"><a class="stage-action" href="https://calorie-tracker-app-azure.vercel.app/">Open live application →</a></div>
-        <dl class="case-facts">
-          <div><dt>Role</dt><dd>Independent developer</dd></div>
-          <div><dt>Problem</dt><dd>Traditional food logging takes too much manual entry</dd></div>
-          <div><dt>My contribution</dt><dd>Mobile product, Supabase backend, editable meal records, analysis, and tracking workflows</dd></div>
-          <div><dt>State</dt><dd>Active development; LLM meal entry in progress</dd></div>
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../roger-tawfik-resume.pdf" download target="_blank" rel="noopener">Resume</a><a href="mailto:tawfikroger@gmail.com" target="_blank" rel="noopener">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik" target="_blank" rel="noopener">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik" target="_blank" rel="noopener">LinkedIn</a></nav></header>
+    <main id="main" class="nut-main">
+      <a class="back" href="../index.html#work">← Back to selected projects</a>
+
+      <section class="nut-hero">
+        <div class="nut-hero-intro">
+          <p class="nut-eyebrow">Mobile-first PWA. Independent project, July 2026 to present.</p>
+          <h1>AI Nutrition Tracker App</h1>
+          <p class="nut-thesis">Two ways to log a meal, one daily record. Whether an entry is typed in detail or parsed by AI from text, a photo, or a barcode, it passes through the same review step before it ever gets saved.</p>
+          <a class="nut-cta" href="https://calorie-tracker-app-azure.vercel.app/" target="_blank" rel="noopener">Open live application →</a>
+        </div>
+        <dl class="nut-facts">
+          <div>
+            <dt>Role</dt>
+            <dd>Independent developer</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>TypeScript, React, Supabase, Vite/PWA</dd>
+          </div>
+          <div>
+            <dt>Problem</dt>
+            <dd>Traditional food logging takes too much manual entry</dd>
+          </div>
+          <div>
+            <dt>State</dt>
+            <dd>Active development, LLM meal entry in progress</dd>
+          </div>
         </dl>
       </section>
 
-      <nav class="case-jumps" aria-label="Case study sections"><span>On this page</span><a href="#screens-title">Product screens</a><a href="#flow-title">Logging workflow</a></nav>
+      <div class="nut-split">
+        <section class="nut-panel" aria-labelledby="nut-screens-heading">
+          <h2 id="nut-screens-heading">Product screens</h2>
+          <div class="nut-switcher">
+            <div class="nut-tablist" role="tablist" aria-label="Choose a product screen">
+              <button
+                type="button"
+                class="nut-tab"
+                role="tab"
+                id="nut-tab-home"
+                aria-selected="true"
+                aria-controls="nut-panel"
+                tabindex="0"
+                data-src="../assets/nutrition-current-home.png"
+                data-w="430"
+                data-h="1129"
+                data-alt="Nutrition Tracker dashboard after logging a sample meal"
+                data-caption="Logged foods, daily totals, and a coaching insight."
+              >
+                <strong>Home</strong>
+                <span>Dashboard, daily total</span>
+              </button>
+              <button
+                type="button"
+                class="nut-tab"
+                role="tab"
+                id="nut-tab-add"
+                aria-selected="false"
+                aria-controls="nut-panel"
+                tabindex="-1"
+                data-src="../assets/nutrition-current-add.png"
+                data-w="430"
+                data-h="932"
+                data-alt="Natural language, photo, and barcode food entry screen"
+                data-caption="Text, photo, and barcode entry."
+              >
+                <strong>Add</strong>
+                <span>Text, photo, barcode</span>
+              </button>
+              <button
+                type="button"
+                class="nut-tab"
+                role="tab"
+                id="nut-tab-review"
+                aria-selected="false"
+                aria-controls="nut-panel"
+                tabindex="-1"
+                data-src="../assets/nutrition-current-review.png"
+                data-w="430"
+                data-h="1307"
+                data-alt="Editable nutrition review screen before logging"
+                data-caption="Review before logging, edit anything that looks off."
+              >
+                <strong>Review</strong>
+                <span>Edit before it saves</span>
+              </button>
+              <button
+                type="button"
+                class="nut-tab"
+                role="tab"
+                id="nut-tab-analysis"
+                aria-selected="false"
+                aria-controls="nut-panel"
+                tabindex="-1"
+                data-src="../assets/nutrition-current-analysis.png"
+                data-w="430"
+                data-h="932"
+                data-alt="Nutrition analysis screen with goal pacing options and weekly averages"
+                data-caption="Goal pacing options and weekly averages."
+              >
+                <strong>Analysis</strong>
+                <span>Pacing, weekly averages</span>
+              </button>
+            </div>
+            <div class="nut-frame-col">
+              <div class="nut-frame">
+                <img
+                  id="nut-screen-img"
+                  src="../assets/nutrition-current-home.png"
+                  width="430"
+                  height="1129"
+                  alt="Nutrition Tracker dashboard after logging a sample meal"
+                />
+              </div>
+              <p class="nut-caption" id="nut-caption">Logged foods, daily totals, and a coaching insight.</p>
+            </div>
+          </div>
+          <div id="nut-panel" role="tabpanel" aria-labelledby="nut-tab-home" hidden></div>
+          <noscript>
+            <p>Screen switching needs JavaScript. All four screens, shown in full:</p>
+            <figure><img src="../assets/nutrition-current-home.png" width="430" height="1129" alt="Nutrition Tracker dashboard after logging a sample meal" /><figcaption>Logged foods, daily totals, and a coaching insight.</figcaption></figure>
+            <figure><img src="../assets/nutrition-current-add.png" width="430" height="932" alt="Natural language, photo, and barcode food entry screen" /><figcaption>Text, photo, and barcode entry.</figcaption></figure>
+            <figure><img src="../assets/nutrition-current-review.png" width="430" height="1307" alt="Editable nutrition review screen before logging" /><figcaption>Review before logging, edit anything that looks off.</figcaption></figure>
+            <figure><img src="../assets/nutrition-current-analysis.png" width="430" height="932" alt="Nutrition analysis screen with goal pacing options and weekly averages" /><figcaption>Goal pacing options and weekly averages.</figcaption></figure>
+          </noscript>
+        </section>
 
-      <section class="case-section" aria-labelledby="screens-title">
-        <header class="case-section-heading"><div><p class="section-index">Current product</p><h2 id="screens-title">The tracking foundation</h2></div></header>
-        <p class="mobile-gallery-hint" id="nutrition-gallery-hint">Swipe or scroll to inspect each screen.</p>
-        <div class="nutrition-screens" tabindex="0" aria-describedby="nutrition-gallery-hint">
-          <figure><img src="../assets/nutrition-current-home.png" width="430" height="1129" loading="lazy" alt="Nutrition Tracker dashboard after logging a sample meal" /><figcaption>Logged foods, daily totals, and a coaching insight</figcaption></figure>
-          <figure><img src="../assets/nutrition-current-add.png" width="430" height="932" loading="lazy" alt="Natural-language, photo, and barcode food entry screen" /><figcaption>Text, photo, and barcode entry</figcaption></figure>
-          <figure><img src="../assets/nutrition-current-review.png" width="430" height="1307" loading="lazy" alt="Editable nutrition review screen before logging" /><figcaption>Review and correct parsed foods</figcaption></figure>
-          <figure><img src="../assets/nutrition-current-analysis.png" width="430" height="932" loading="lazy" alt="Nutrition analysis screen with maintenance and weekly averages" /><figcaption>Daily analysis and weekly averages</figcaption></figure>
-        </div>
-      </section>
+        <section class="nut-panel" aria-labelledby="nut-paths-heading">
+          <h2 id="nut-paths-heading">Two paths, one checkpoint</h2>
+          <div class="nut-paths">
+            <article class="nut-path">
+              <span class="nut-path-kind">Detailed</span>
+              <h3>Traditional entry</h3>
+              <p>Add each food and edit the nutrition fields directly. Full manual control over exactly what gets logged.</p>
+            </article>
+            <article class="nut-path">
+              <span class="nut-path-kind">Faster</span>
+              <h3>AI-assisted entry</h3>
+              <p>Describe a meal in text, or use a photo or barcode, so parsing fills in the fields instead of typing each one.</p>
+            </article>
+          </div>
+          <svg class="nut-converge" viewBox="0 0 100 40" aria-hidden="true" focusable="false">
+            <path d="M25 0 L48 32" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M75 0 L52 32" fill="none" stroke="currentColor" stroke-width="2" />
+            <circle cx="50" cy="35" r="3" fill="currentColor" />
+          </svg>
+          <div class="nut-checkpoint">
+            <span class="nut-checkpoint-label">Both paths, same rule</span>
+            <h3>Nothing saves until it is reviewed</h3>
+            <p>Typed or AI-parsed, every entry lands on the same review screen first. Items are shown as editable fields for calories, protein, carbs, fat, sodium, and potassium, so <em>anything that looks off gets fixed before it becomes part of the daily record</em>, not after.</p>
+          </div>
+        </section>
+      </div>
 
-      <section class="case-section" aria-labelledby="flow-title">
-        <header class="case-section-heading"><div><p class="section-index">Product direction</p><h2 id="flow-title">Two ways to log, one daily record</h2></div></header>
-        <div class="product-flow" aria-label="Nutrition entry workflow"><div><b>Detailed</b><span>Traditional tracking</span><small>Add and edit nutrition fields directly.</small></div><div><b>Faster</b><span>LLM meal entry</span><small>Use text or a photo with less manual entry.</small></div><div><b>Review</b><span>Confirm the result</span><small>Correct foods and values before saving.</small></div><div><b>Track</b><span>One daily record</span><small>Calories, macros, nutrients, and trends.</small></div></div>
-      </section>
-
-      <nav class="project-nav" aria-label="Project navigation"><a href="gait-analysis.html"><span>Previous project</span><strong>← Clinical Gait Video Analysis</strong></a><a href="gym-form-trainer.html"><span>Next project</span><strong>Gym Form Trainer →</strong></a></nav>
+      <nav class="project-nav" aria-label="Project navigation">
+        <a href="gait-analysis.html"><span>Previous project</span><strong>← Clinical Gait Video Analysis</strong></a>
+        <a href="gym-form-trainer.html"><span>Next project</span><strong>Gym Form Trainer →</strong></a>
+      </nav>
     </main>
-    <footer class="site-footer"><span>Roger Tawfik · Product case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> · <a href="../roger-tawfik-resume.pdf" download>Résumé</a></span></footer>
+    <footer class="site-footer"><span>Roger Tawfik · Product case study</span><span><a href="../roger-tawfik-resume.pdf" download target="_blank" rel="noopener">Resume</a> · <a href="mailto:tawfikroger@gmail.com" target="_blank" rel="noopener">Email</a> · <a href="https://github.com/rogertawfik" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/rogertawfik" target="_blank" rel="noopener">LinkedIn</a></span></footer>
+    <script>
+      (function () {
+        var tabs = Array.prototype.slice.call(document.querySelectorAll(".nut-tab"));
+        var img = document.getElementById("nut-screen-img");
+        var caption = document.getElementById("nut-caption");
+        var panel = document.getElementById("nut-panel");
+        var tablist = document.querySelector(".nut-tablist");
+
+        function activate(tab, moveFocus) {
+          tabs.forEach(function (t) {
+            var selected = t === tab;
+            t.setAttribute("aria-selected", selected ? "true" : "false");
+            t.tabIndex = selected ? 0 : -1;
+          });
+          img.src = tab.getAttribute("data-src");
+          img.width = tab.getAttribute("data-w");
+          img.height = tab.getAttribute("data-h");
+          img.alt = tab.getAttribute("data-alt");
+          caption.textContent = tab.getAttribute("data-caption");
+          panel.setAttribute("aria-labelledby", tab.id);
+          if (moveFocus) {
+            tab.focus();
+          }
+        }
+
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            activate(tab, false);
+          });
+        });
+
+        tablist.addEventListener("keydown", function (event) {
+          var currentIndex = tabs.findIndex(function (t) {
+            return t.getAttribute("aria-selected") === "true";
+          });
+          var nextIndex = null;
+
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+            nextIndex = (currentIndex + 1) % tabs.length;
+          } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+            nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+          } else if (event.key === "Home") {
+            nextIndex = 0;
+          } else if (event.key === "End") {
+            nextIndex = tabs.length - 1;
+          }
+
+          if (nextIndex !== null) {
+            event.preventDefault();
+            activate(tabs[nextIndex], true);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -12,11 +12,11 @@
          shared styles.css (which already defines an unrelated .pipeline, .occluder, .back, etc.
          for other pages). .back, .site-header, .site-footer, .project-nav, .skip-link are the
          real shared site components and are intentionally left unstyled here. */
-      .gva-hero { color: #eef0f4; background: #2e3955; margin-top: clamp(2rem, 7vw, 6rem); border-radius: 12px; overflow: hidden; }
+      .gva-hero { color: #eef0f4; background: var(--primary); margin-top: clamp(2rem, 7vw, 6rem); border-radius: 12px; overflow: hidden; }
       .gva-hero-inner { display: grid; grid-template-columns: minmax(320px, .92fr) minmax(360px, 1.08fr); gap: clamp(28px, 5vw, 64px); align-items: center; padding: clamp(2rem, 5vw, 4rem); }
       .gva-back { display: inline-block; margin-bottom: 24px; color: #aeb6c8; font-size: 13px; text-decoration: none; }
       .gva-back:hover { color: #fff; }
-      .gva-eyebrow { margin: 0 0 14px; color: #d0555c; font: 600 12px/1.4 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; letter-spacing: .07em; text-transform: uppercase; }
+      .gva-eyebrow { margin: 0 0 14px; color: #99a2b8; font: 400 12px/1.4 "JetBrains Mono", "Geist Mono", ui-monospace, monospace; }
       .gva-hero-copy h1 { margin: 0; font-size: clamp(38px, 4.3vw, 56px); font-weight: 620; line-height: 1.02; letter-spacing: -.04em; }
       .gva-thesis { max-width: 46ch; margin-top: 16px; color: #cfd4de; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.5; }
       .gva-meta-line { margin-top: 14px; color: #99a2b8; font-size: 13px; }
@@ -115,7 +115,7 @@
   </head>
   <body class="portfolio project-page gait-page">
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../index.html#work">Work</a><a href="../roger-tawfik-resume.pdf" download>Resume</a><a href="mailto:tawfikroger@gmail.com">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik">LinkedIn</a></nav></header>
+    <header class="site-header"><a class="wordmark" href="../index.html">Roger Tawfik</a><nav aria-label="Primary navigation"><a href="../roger-tawfik-resume.pdf" download target="_blank" rel="noopener">Resume</a><a href="mailto:tawfikroger@gmail.com" target="_blank" rel="noopener">Email</a><a class="nav-secondary" href="https://github.com/rogertawfik" target="_blank" rel="noopener">GitHub</a><a class="nav-secondary" href="https://linkedin.com/in/rogertawfik" target="_blank" rel="noopener">LinkedIn</a></nav></header>
     <main id="main">
       <section class="gva-hero" aria-labelledby="page-title">
         <div class="gva-hero-inner">
@@ -151,13 +151,13 @@
           </div>
           <div class="gva-rail-node is-gate">
             <span class="gva-rail-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/></svg></span>
-            <span class="gva-rail-label">Gate 01</span>
+            <span class="gva-rail-label">Capture checks</span>
             <h3>Subject &amp; capture</h3>
             <p>Lighting, focus, person count, occlusion, and framing.</p>
           </div>
           <div class="gva-rail-node is-gate">
             <span class="gva-rail-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5.5" r="1.6"/><path d="M12 7v6M12 13l-4 5M12 13l4 5M8 10h8"/></svg></span>
-            <span class="gva-rail-label">Gate 02</span>
+            <span class="gva-rail-label">YOLOv8 + MediaPipe</span>
             <h3>Pose &amp; path</h3>
             <p>YOLOv8 person tracking cross-checked against MediaPipe pose.</p>
           </div>
@@ -225,7 +225,7 @@
 
       <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="nutrition-tracker.html"><span>Next project</span><strong>AI Nutrition Tracker App &rarr;</strong></a></nav>
     </main>
-    <footer class="site-footer"><span>Roger Tawfik &middot; Research case study</span><span><a href="mailto:tawfikroger@gmail.com">Email</a> &middot; <a href="../roger-tawfik-resume.pdf" download>R&eacute;sum&eacute;</a></span></footer>
+    <footer class="site-footer"><span>Roger Tawfik &middot; Research case study</span><span><a href="../roger-tawfik-resume.pdf" download target="_blank" rel="noopener">Resume</a> &middot; <a href="mailto:tawfikroger@gmail.com" target="_blank" rel="noopener">Email</a> &middot; <a href="https://github.com/rogertawfik" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://linkedin.com/in/rogertawfik" target="_blank" rel="noopener">LinkedIn</a></span></footer>
     <script>
       const conditions = {
         usable: { title: 'Recording can proceed', decision: 'Send to pose estimation and gait analysis.', tests: ['Pass','Pass','Pass','Pass'] },
