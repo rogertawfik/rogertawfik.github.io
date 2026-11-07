@@ -121,10 +121,10 @@
         <div class="gva-hero-inner">
           <div class="gva-hero-copy">
             <a class="gva-back" href="../index.html#work">&larr; Selected projects</a>
-            <p class="gva-eyebrow">Clinical gait video analysis &middot; NSF REU &middot; June&ndash;July 2026</p>
+            <p class="gva-eyebrow">Clinical gait video analysis &middot; NSF REU &middot; Jun 2026&ndash;Present</p>
             <h1 id="page-title">Check the recording before measuring the walk.</h1>
             <p class="gva-thesis">I developed a fail-fast quality-control pipeline that catches unusable walking video while a useful retake is still possible.</p>
-            <p class="gva-meta-line">Undergraduate Researcher &middot; mobile implementation underway; publication in preparation</p>
+            <p class="gva-meta-line">Computer Vision Research Engineer &middot; Outstanding Research Award, 2026 NSF REU Cohort</p>
             <a class="gva-affiliation" href="https://www.fau.edu/isense/reu/reu-2026/ghoraani-wearables-and-data-analytics/">
               <img src="../assets/fau-logo.webp" width="60" height="48" alt="" />
               <span>I-SENSE NSF REU &middot; Florida Atlantic University<strong>Advised by Dr. Behnaz Ghoraani &nearr;</strong></span>
@@ -210,7 +210,7 @@
 
       <section class="gva-native" aria-labelledby="native-title">
         <h2 id="native-title">Same pipeline, reimplemented natively.</h2>
-        <p>The Python pipeline is reimplemented natively in Kotlin and Swift, then checked against desktop reference clips.</p>
+        <p>One QC specification, implemented three times: the Python reference pipeline, a from-scratch Kotlin Android port, and a Swift iOS port. Every build is held to the same reference standard.</p>
         <table class="gva-runtime-table">
           <thead>
             <tr><th scope="col">Runtime</th><th scope="col">Desktop reference</th><th scope="col">Android</th><th scope="col">iOS</th></tr>
@@ -221,6 +221,24 @@
             <tr><th scope="row">Validation</th><td>Reference clips established</td><td>Run against desktop reference clips</td><td>Same verdicts as Android on desktop reference clips; platform-specific behavior documented</td></tr>
           </tbody>
         </table>
+      </section>
+
+      <section class="gva-native" aria-labelledby="validation-title">
+        <h2 id="validation-title">Checked like a measurement system, not a demo.</h2>
+        <p>All three implementations ran the same 120-clip study corpus. I built reconciliation tooling that compares verdicts check by check across platforms instead of only comparing the final pass or fail, and the three implementations agreed on 93 of the 120 clips. The disagreements were not random noise: per-check reconciliation traced them to a systematic decision-boundary divergence between the desktop and mobile builds in one geometric check. On the frozen parity set the ports score iOS 11/11 and Android 9/11 against the desktop reference, and both Android misses were root-caused to an arm64 MediaPipe model difference. The divergence is documented as a finding of the study, with the evidence to reproduce it.</p>
+        <p>The gate's own thresholds were set the same way. The blur and brightness gates come from a sub-study that compared gait metrics against Zenomat instrumented-walkway ground truth on 18 paired clinical clips, finding the degradation levels at which measurements actually diverge instead of choosing cutoffs by inspection. Repeat-run determinism testing confirmed the pipeline returns identical results on identical input.</p>
+        <p>The gate itself is ten checks in three fail-fast tiers: file validity, capture quality on sampled frames, then person and pose content. Which checks can fail a recording and which are diagnostic-only was decided by a check-utility analysis on labeled clips, so a check gates only when it provably catches failures the others miss.</p>
+      </section>
+
+      <section class="gva-native" aria-labelledby="performance-title">
+        <h2 id="performance-title">The speedup came from profiling, not a bigger GPU.</h2>
+        <p>Profiling showed roughly 85% of the detection stage's time was per-call overhead from invoking the model once per frame, which is why a larger GPU barely helped. Batching detection and re-linking tracks with a lightweight CPU linker cut the stage about 5x: detection runs roughly 25 to 5 seconds per clip, and total QC roughly 40 to 20 seconds.</p>
+        <p>The faster path had to prove it changed nothing. On the 18-clip benchmark, every check produced identical results before and after batching, 18 of 18 clips. A separate 36-run study then showed that subsampling to every third frame preserves every gating verdict, giving the pipeline documented headroom on CPU-only hardware.</p>
+      </section>
+
+      <section class="gva-native" aria-labelledby="handover-title">
+        <h2 id="handover-title">Built to be handed over.</h2>
+        <p>The system stayed in lab use after the REU ended. My final presentation became the onboarding outline for the students who continued the project, and within weeks a new collaborator was recording study videos in the iOS and Android apps.</p>
       </section>
 
       <nav class="project-nav" aria-label="Project navigation"><a href="../index.html#work"><span>Back to</span><strong>All selected projects</strong></a><a href="nutrition-tracker.html"><span>Next project</span><strong>AI Nutrition Tracker App &rarr;</strong></a></nav>
